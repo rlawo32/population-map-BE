@@ -14,24 +14,24 @@ public class PopulationJan {
     @Column(name = "admin_code")
     private Long adminCode;
 
-    @Column(name = "standard_date")
+    @Column(name = "standard_date") // 집계날짜
     private String standardDate;
 
-    @Column(name = "name_city")
-    private String nameCity;
+    @Column(name = "name_city") // 특별시, 도
+    private String nameCity; 
 
-    @Column(name = "name_ward")
+    @Column(name = "name_ward") // 시, 군, 구
     private String nameWard;
 
-    @Column(name = "name_town")
+    @Column(name = "name_town") // 읍, 면, 동
     private String nameTown;
 
-    @Column(name = "pop_total")
+    @Column(name = "pop_total") // 해당 지역 전체 인구수
     private Long popTotal;
 
-    @Column(name = "pop_man_total")
-    private Long popManTotal;
+    @Column(name = "pop_m_total") // 해당 지역 남자 전체 인구수
+    private Long popMTotal;
 
-    @Column(name = "pop_woman_total")
-    private Long popWomanTotal;
+    @Column(name = "pop_w_total") // 해당 지역 여자 전체 인구수
+    private Long popWTotal;
 }
