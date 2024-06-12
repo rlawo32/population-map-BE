@@ -1,4 +1,4 @@
-package com.pm.pmproject.jpa.domain.populationJan;
+package com.pm.pmproject.jpa.domain.populationFeb;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Getter
-@Table(name = "PopulationJan20s")
-public class PopulationJan20s {
+@Table(name = "PopulationFeb20s")
+public class PopulationFeb20s {
 
     @Id
     @Column(name = "admin_code")
