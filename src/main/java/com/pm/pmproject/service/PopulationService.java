@@ -62,7 +62,10 @@ public class PopulationService {
             // 12. 문자열을 JSON 형태로 JSONObject 객체에 저장.
             JSONObject obj = (JSONObject)parser.parse(sb.toString());
             // 13. 필요한 리스트 데이터 부분만 가져와 JSONArray로 저장.
+            System.out.println(obj);
             JSONArray dataArr = (JSONArray) obj.get("data");
+            JSONObject obj2 = (JSONObject)dataArr.get(0);
+            System.out.println(obj2.get("15세여자"));
             // 14. 전달받은 데이터 확인.
             for(int i=0; i<dataArr.size(); i++) {
                 System.out.println(dataArr.get(i));
