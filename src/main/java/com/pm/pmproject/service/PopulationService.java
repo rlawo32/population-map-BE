@@ -67,13 +67,13 @@ public class PopulationService {
 
             JsonNode node1 = objectMapper.readTree(sb.toString());
             JsonNode node2 = node1.findValue("data");
-            System.out.println(sb.toString());
             System.out.println(node1);
             System.out.println(node2);
 
 
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //            List<PopulationResultDto> list = objectMapper.treeToValue(node2, new TypeReference<List<PopulationResultDto>>() {});
+            // 아래에서 반복문, dto 세대별로 진행
             List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
             list.forEach(populationResultDto -> System.out.println(populationResultDto.getNameTown()));
 
