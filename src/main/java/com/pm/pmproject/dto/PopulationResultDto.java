@@ -39,4 +39,10 @@ public class PopulationResultDto {
 
     @JsonProperty("0세여자")
     private Long popAgeW0;
+
+    @JsonProperty("1세남자")
+    private Long popAgeM1;
+
+    @JsonProperty("1세여자")
+    private Long popAgeW1;
 }
