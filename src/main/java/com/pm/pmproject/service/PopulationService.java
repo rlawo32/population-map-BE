@@ -1,19 +1,24 @@
 package com.pm.pmproject.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pm.pmproject.dto.PopulationResultDto;
 import lombok.RequiredArgsConstructor;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
+import java.io.DataInput;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class PopulationService {
@@ -57,19 +62,20 @@ public class PopulationService {
             // 10. 객체 해제.
             rd.close();
             conn.disconnect();
-            // 11. 문자열 형태의 JSON을 파싱하기 위한 JSONParser 객체 생성.
-            JSONParser parser = new JSONParser();
-            // 12. 문자열을 JSON 형태로 JSONObject 객체에 저장.
-            JSONObject obj = (JSONObject)parser.parse(sb.toString());
-            // 13. 필요한 리스트 데이터 부분만 가져와 JSONArray로 저장.
-            System.out.println(obj);
-            JSONArray dataArr = (JSONArray) obj.get("data");
-            JSONObject obj2 = (JSONObject)dataArr.get(0);
-            System.out.println(obj2.get("15세여자"));
-            // 14. 전달받은 데이터 확인.
-            for(int i=0; i<dataArr.size(); i++) {
-                System.out.println(dataArr.get(i));
-            }
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            JsonNode node1 = objectMapper.readTree(sb.toString());
+            JsonNode node2 = node1.findValue("data");
+            System.out.println(sb.toString());
+            System.out.println(node1);
+            System.out.println(node2);
+
+
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//            List<PopulationResultDto> list = objectMapper.treeToValue(node2, new TypeReference<List<PopulationResultDto>>() {});
+            List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
+            list.forEach(populationResultDto -> System.out.println(populationResultDto.getNameTown()));
 
         } catch(Exception e) {
             e.printStackTrace();
