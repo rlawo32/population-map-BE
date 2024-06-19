@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PopulationOsDto {
+public class Population0sDto {
 
     @JsonProperty("행정기관코드")
     private Long adminCode;
