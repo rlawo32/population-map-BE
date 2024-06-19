@@ -75,6 +75,7 @@ public class PopulationService {
 //            List<PopulationResultDto> list = objectMapper.treeToValue(node2, new TypeReference<List<PopulationResultDto>>() {});
             // 아래에서 반복문, dto 세대별로 진행
             List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
+            List<PopulationResultDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
             list.forEach(populationResultDto -> System.out.println(populationResultDto.getNameTown()));
 
         } catch(Exception e) {
