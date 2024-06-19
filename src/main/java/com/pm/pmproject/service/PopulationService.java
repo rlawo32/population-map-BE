@@ -97,7 +97,7 @@ public class PopulationService {
             List<Population70sDto> list7 = Arrays.asList(objectMapper.treeToValue(node2, Population70sDto[].class));
             List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
             List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
-            List<Population1000sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population1000sDto[].class));
+            List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
             list.forEach(populationResultDto -> System.out.println(populationResultDto.getNameTown()));
             list4.forEach(population40sDto -> System.out.println(population40sDto.adminCode()) System.out.println(population40sDto.getAgeM42()));
             list9.forEach(population90sDto -> System.out.println(population90sDto.adminCode()) System.out.println(population90sDto.getAgeM94()));
