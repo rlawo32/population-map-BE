@@ -4,11 +4,23 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pm.pmproject.dto.PopulationResultDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.pm.pmproject.dto.PopulationResultDto;
+import com.pm.pmproject.dto.Population0sDto;
+import com.pm.pmproject.dto.Population10sDto;
+import com.pm.pmproject.dto.Population20sDto;
+import com.pm.pmproject.dto.Population30sDto;
+import com.pm.pmproject.dto.Population40sDto;
+import com.pm.pmproject.dto.Population50sDto;
+import com.pm.pmproject.dto.Population60sDto;
+import com.pm.pmproject.dto.Population70sDto;
+import com.pm.pmproject.dto.Population80sDto;
+import com.pm.pmproject.dto.Population90sDto;
+import com.pm.pmproject.dto.Population100sDto;
 
 import java.io.BufferedReader;
 import java.io.DataInput;
@@ -75,7 +87,17 @@ public class PopulationService {
 //            List<PopulationResultDto> list = objectMapper.treeToValue(node2, new TypeReference<List<PopulationResultDto>>() {});
             // 아래에서 반복문, dto 세대별로 진행
             List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
-            List<PopulationResultDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
+            List<Population0sDto> list0 = Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class));
+            List<Population10sDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, Population10sDto[].class));
+            List<Population20sDto> list2 = Arrays.asList(objectMapper.treeToValue(node2, Population20sDto[].class));
+            List<Population30sDto> list3 = Arrays.asList(objectMapper.treeToValue(node2, Population30sDto[].class));
+            List<Population40sDto> list4 = Arrays.asList(objectMapper.treeToValue(node2, Population40sDto[].class));
+            List<Population50sDto> list5 = Arrays.asList(objectMapper.treeToValue(node2, Population50sDto[].class));
+            List<Population60sDto> list6 = Arrays.asList(objectMapper.treeToValue(node2, Population60sDto[].class));
+            List<Population70sDto> list7 = Arrays.asList(objectMapper.treeToValue(node2, Population70sDto[].class));
+            List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
+            List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
+            List<Population1000sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population1000sDto[].class));
             list.forEach(populationResultDto -> System.out.println(populationResultDto.getNameTown()));
 
         } catch(Exception e) {
