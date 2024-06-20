@@ -1,6 +1,7 @@
 package com.pm.pmproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pm.pmproject.jpa.domain.populationJan.PopulationJan;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +34,8 @@ public class PopulationResultDto {
 
     @JsonProperty("여자")
     private Long popWTotal;
+
+    public PopulationJan toEntity() {
+        return new PopulationJan(adminCode, standardDate, nameCity, nameWard, nameTown, popTotal, popMTotal, popWTotal);
+    }
 }
