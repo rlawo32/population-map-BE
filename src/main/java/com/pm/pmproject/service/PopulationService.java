@@ -1,39 +1,30 @@
 package com.pm.pmproject.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pm.pmproject.dto.*;
+import com.pm.pmproject.jpa.domain.populationJan.PopulationJan;
+import com.pm.pmproject.jpa.repository.populationJan.PopulationJanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pm.pmproject.dto.PopulationResultDto;
-import com.pm.pmproject.dto.Population0sDto;
-import com.pm.pmproject.dto.Population10sDto;
-import com.pm.pmproject.dto.Population20sDto;
-import com.pm.pmproject.dto.Population30sDto;
-import com.pm.pmproject.dto.Population40sDto;
-import com.pm.pmproject.dto.Population50sDto;
-import com.pm.pmproject.dto.Population60sDto;
-import com.pm.pmproject.dto.Population70sDto;
-import com.pm.pmproject.dto.Population80sDto;
-import com.pm.pmproject.dto.Population90sDto;
-import com.pm.pmproject.dto.Population100sDto;
-
 import java.io.BufferedReader;
-import java.io.DataInput;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class PopulationService {
+
+    private final PopulationJanRepository populationJanRepository;
 
     @Transactional
 //    @Scheduled(cron = "0 0 0 * * ?") // 매일 24시
@@ -45,7 +36,7 @@ public class PopulationService {
             StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/uddi:780a2373-bf11-4fb6-b3e4-ed4119571817");
             // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
             urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
-            urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
+            urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
             urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=1zfm3O6MusH4xNmea2J41ZdYEpwMmwp4AOgUvyRJHU1bNOcyxF6VX17CZKFpJeBeJTtw%2B%2BcKcEC7g%2BuguQI79g%3D%3D");
             // 3. URL 객체 생성.
             System.out.println(urlBuilder.toString());
@@ -84,9 +75,9 @@ public class PopulationService {
 
 
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//            List<PopulationResultDto> list = objectMapper.treeToValue(node2, new TypeReference<List<PopulationResultDto>>() {});
             // 아래에서 반복문, dto 세대별로 진행
             List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
+//            List<PopulationJan> repoList = list.stream().map(PopulationResultDto::).collect(Collectors.toList());
             List<Population0sDto> list0 = Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class));
             List<Population10sDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, Population10sDto[].class));
             List<Population20sDto> list2 = Arrays.asList(objectMapper.treeToValue(node2, Population20sDto[].class));
@@ -98,11 +89,8 @@ public class PopulationService {
             List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
             List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
             List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
-            list.forEach(populationResultDto -> System.out.println(populationResultDto.getNameTown()));
-            list4.forEach(population40sDto -> System.out.println(population40sDto.getAdminCode()));
-            list4.forEach(population40sDto -> System.out.println(population40sDto.getPopAgeM42()));
-            list9.forEach(population90sDto -> System.out.println(population90sDto.getAdminCode()));
-            list9.forEach(population90sDto -> System.out.println(population90sDto.getPopAgeW94()));
+
+//            populationJanRepository.saveAll(list);
 
         } catch(Exception e) {
             e.printStackTrace();
