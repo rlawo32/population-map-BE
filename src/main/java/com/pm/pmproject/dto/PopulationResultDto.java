@@ -34,8 +34,4 @@ public class PopulationResultDto {
 
     @JsonProperty("여자")
     private Long popWTotal;
-
-    public PopulationJan toEntity() {
-        return new PopulationJan(adminCode, standardDate, nameCity, nameWard, nameTown, popTotal, popMTotal, popWTotal);
-    }
 }
