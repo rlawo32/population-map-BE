@@ -1,5 +1,6 @@
 package com.pm.pmproject.jpa.domain.populationJan;
 
+import com.pm.pmproject.dto.PopulationResultDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,4 +35,15 @@ public class PopulationJan {
 
     @Column(name = "pop_w_total") // 해당 지역 여자 전체 인구수
     private Long popWTotal;
+
+    public PopulationJan(PopulationResultDto populationResultDto) {
+        this.adminCode = populationResultDto.getAdminCode();
+        this.standardDate = populationResultDto.getStandardDate();
+        this.nameCity = populationResultDto.getNameCity();
+        this.nameWard = populationResultDto.getNameWard();
+        this.nameTown = populationResultDto.getNameTown();
+        this.popTotal = populationResultDto.getPopTotal();
+        this.popMTotal = populationResultDto.getPopMTotal();
+        this.popWTotal = populationResultDto.getPopWTotal();
+    }
 }
