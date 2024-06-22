@@ -4,12 +4,13 @@ import com.pm.pmproject.dto.PopulationResultDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 @NoArgsConstructor
 @Entity
 @Getter
 @Table(name = "PopulationJan")
-public class PopulationJan {
+public class PopulationJan implements Persistable<Long> {
 
     @Id
     @Column(name = "admin_code")
@@ -35,6 +36,16 @@ public class PopulationJan {
 
     @Column(name = "pop_w_total") // 해당 지역 여자 전체 인구수
     private Long popWTotal;
+
+    @Override
+    public boolean isNew() {
+        return true;
+    }
+
+    @Override
+    public Long getId() {
+        return this.adminCode;
+    }
 
     public PopulationJan(PopulationResultDto populationResultDto) {
         this.adminCode = populationResultDto.getAdminCode();
