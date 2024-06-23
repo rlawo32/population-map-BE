@@ -25,11 +25,13 @@ import java.util.stream.Collectors;
 public class PopulationJanService {
 
     private final PopulationJanRepository populationJanRepository;
+
+    @Transactional
     public void populationJanUpdate(CommonRequestDto commonRequestDto) {
         try {
             List<PopulationJan> repoList = commonRequestDto.getPopulationResultDto()
                     .stream().map(PopulationJan::new).collect(Collectors.toList());
-            populationJanRepository.saveAll(repoList);
+            populationJanRepository.batchInsert(repoList);
 
         } catch(Exception e) {
             e.printStackTrace();
