@@ -39,7 +39,7 @@ public class PopulationService {
                 StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/uddi:780a2373-bf11-4fb6-b3e4-ed4119571817");
                 // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
                 urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode(String.valueOf(i), "UTF-8"));
-                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
+                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=1zfm3O6MusH4xNmea2J41ZdYEpwMmwp4AOgUvyRJHU1bNOcyxF6VX17CZKFpJeBeJTtw%2B%2BcKcEC7g%2BuguQI79g%3D%3D");
                 // 3. URL 객체 생성.
                 URL url = new URL(urlBuilder.toString());
