@@ -21,7 +21,8 @@ public class PopulationJanRepository {
 
     public void batchInsert(List<PopulationJan> list) {
         jdbcTemplate.batchUpdate(
-                "INSERT INTO population_jan (admin_code, standard_date, name_city, name_ward, name_town, pop_total, pop_m_total, pop_w_total) " +
+                "INSERT INTO population_jan (admin_code, standard_date, name_city, " +
+                        "name_ward, name_town, pop_total, pop_m_total, pop_w_total) " +
                         "VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
