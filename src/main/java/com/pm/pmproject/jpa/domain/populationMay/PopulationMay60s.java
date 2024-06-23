@@ -1,17 +1,19 @@
 package com.pm.pmproject.jpa.domain.populationMay;
 
+import com.pm.pmproject.dto.Population60sDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 @NoArgsConstructor
 @Entity
 @Getter
-@Table(name = "PopulationMay60s")
-public class PopulationMay60s {
+@Table(name = "PopulationMay_60s")
+public class PopulationMay60s implements Persistable<Long> {
 
     @Id
     @Column(name = "admin_code")
@@ -76,4 +78,38 @@ public class PopulationMay60s {
 
     @Column(name = "pop_age_w_69")
     private Long popAgeW69;
+
+    @Override
+    public boolean isNew() {
+        return true;
+    }
+
+    @Override
+    public Long getId() {
+        return this.adminCode;
+    }
+
+    public PopulationMay60s(Population60sDto population60sDto) {
+        this.adminCode = population60sDto.getAdminCode();
+        this.popAgeM60 = population60sDto.getPopAgeM60();
+        this.popAgeW60 = population60sDto.getPopAgeW60();
+        this.popAgeM61 = population60sDto.getPopAgeM61();
+        this.popAgeW61 = population60sDto.getPopAgeW61();
+        this.popAgeM62 = population60sDto.getPopAgeM62();
+        this.popAgeW62 = population60sDto.getPopAgeW62();
+        this.popAgeM63 = population60sDto.getPopAgeM63();
+        this.popAgeW63 = population60sDto.getPopAgeW63();
+        this.popAgeM64 = population60sDto.getPopAgeM64();
+        this.popAgeW64 = population60sDto.getPopAgeW64();
+        this.popAgeM65 = population60sDto.getPopAgeM65();
+        this.popAgeW65 = population60sDto.getPopAgeW65();
+        this.popAgeM66 = population60sDto.getPopAgeM66();
+        this.popAgeW66 = population60sDto.getPopAgeW66();
+        this.popAgeM67 = population60sDto.getPopAgeM67();
+        this.popAgeW67 = population60sDto.getPopAgeW67();
+        this.popAgeM68 = population60sDto.getPopAgeM68();
+        this.popAgeW68 = population60sDto.getPopAgeW68();
+        this.popAgeM69 = population60sDto.getPopAgeM69();
+        this.popAgeW69 = population60sDto.getPopAgeW69();
+    }
 }
