@@ -89,7 +89,7 @@ public class PopulationMar100s implements Persistable<Long> {
         return this.adminCode;
     }
 
-    public PopulationMar100s (Population100sDto population100sDto) {
+    public PopulationMar100s(Population100sDto population100sDto) {
         this.adminCode = population100sDto.getAdminCode();
         this.popAgeM100 = population100sDto.getPopAgeM100();
         this.popAgeW100 = population100sDto.getPopAgeW100();
