@@ -12,7 +12,7 @@ import org.springframework.data.domain.Persistable;
 @NoArgsConstructor
 @Entity
 @Getter
-@Table(name = "Population_Aug")
+@Table(name = "PopulationAug")
 public class PopulationAug Persistable<Long> {
 
     @Id
