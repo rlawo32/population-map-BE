@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pm.pmproject.dto.*;
-import com.pm.pmproject.jpa.domain.populationJan.PopulationJan;
-import com.pm.pmproject.jpa.repository.populationJan.PopulationJanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -18,23 +16,26 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class PopulationService {
-
-    private final PopulationJanRepository populationJanRepository;
+public class PopulationMainService {
 
     private final PopulationJanService populationJanService;
+    private final PopulationFebService populationFebService;
+    private final PopulationMarService populationMarService;
+    private final PopulationAprService populationAprService;
+    private final PopulationMayService populationMayService;
+    private final PopulationJunService populationJunService;
+    private final PopulationJulService populationJulService;
 
     @Transactional
 //    @Scheduled(cron = "0 0 0 * * ?") // 매일 24시
 //    @Scheduled(cron = "0 0 0/6 * * *") // 6시간마다
-    @Scheduled(cron = "0 0/2 * * * *") // 10분마다
+    @Scheduled(cron = "0 0/5 * * * *") // 10분마다
     public void schedulerPopulationUpdate() {
         try {
-            for(int i=1; i<=1; i++) {
+            for(int i=1; i<=4; i++) {
                 // 1. URL 설정
                 StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/uddi:780a2373-bf11-4fb6-b3e4-ed4119571817");
                 // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
@@ -72,8 +73,6 @@ public class PopulationService {
 
                 JsonNode node1 = objectMapper.readTree(sb.toString());
                 JsonNode node2 = node1.findValue("data");
-                System.out.println(node1);
-                System.out.println(node2);
 
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 // 아래에서 반복문, dto 세대별로 진행
