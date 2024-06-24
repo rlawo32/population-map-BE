@@ -13,7 +13,7 @@ import org.springframework.data.domain.Persistable;
 @Entity
 @Getter
 @Table(name = "PopulationAug")
-public class PopulationAug Persistable<Long> {
+public class PopulationAug implements Persistable<Long> {
 
     @Id
     @Column(name = "admin_code")
