@@ -7,7 +7,6 @@ import com.pm.pmproject.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -28,19 +27,23 @@ public class PopulationMainService {
     private final PopulationMayService populationMayService;
     private final PopulationJunService populationJunService;
     private final PopulationJulService populationJulService;
+    private final PopulationAugService populationAugService;
+    private final PopulationSepService populationSepService;
+    private final PopulationOctService populationOctService;
+    private final PopulationNovService populationNovService;
+    private final PopulationDecService populationDecService;
 
-    @Transactional
 //    @Scheduled(cron = "0 0 0 * * ?") // 매일 24시
 //    @Scheduled(cron = "0 0 0/6 * * *") // 6시간마다
-    @Scheduled(cron = "0 0/5 * * * *") // 10분마다
+    @Scheduled(cron = "0 0/2 * * * *") // 10분마다
     public void schedulerPopulationUpdate() {
         try {
-            for(int i=1; i<=4; i++) {
+            for(int i=1; i<=1; i++) {
                 // 1. URL 설정
                 StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/uddi:780a2373-bf11-4fb6-b3e4-ed4119571817");
                 // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
                 urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode(String.valueOf(i), "UTF-8"));
-                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
+                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=1zfm3O6MusH4xNmea2J41ZdYEpwMmwp4AOgUvyRJHU1bNOcyxF6VX17CZKFpJeBeJTtw%2B%2BcKcEC7g%2BuguQI79g%3D%3D");
                 // 3. URL 객체 생성.
                 URL url = new URL(urlBuilder.toString());
@@ -51,22 +54,27 @@ public class PopulationMainService {
                 // 6. 통신을 위한 Content-type SET.
                 conn.setRequestProperty("Content-type", "application/json");
                 // 7. 통신 응답 코드 확인.
-                System.out.println("Response code: " + conn.getResponseCode());
-                // 8. 전달받은 데이터를 BufferedReader 객체로 저장.
-                BufferedReader rd;
-                if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-                    rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                System.out.print(i + "번째 통신 결과 : ");
+                if(conn.getResponseCode() == 200) {
+                    System.out.println("성공");
                 } else {
-                    rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                    System.out.println("실패");
+                }
+                // 8. 전달받은 데이터를 BufferedReader 객체로 저장.
+                BufferedReader br;
+                if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                    br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                } else {
+                    br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                 }
                 // 9. 저장된 데이터를 라인별로 읽어 StringBuilder 객체로 저장.
                 StringBuilder sb = new StringBuilder();
                 String line;
-                while ((line = rd.readLine()) != null) {
+                while ((line = br.readLine()) != null) {
                     sb.append(line);
                 }
                 // 10. 객체 해제.
-                rd.close();
+                br.close();
                 conn.disconnect();
 
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -89,8 +97,17 @@ public class PopulationMainService {
                 List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
                 List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
 
-                populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                for(int n=0; n<list.size(); n++) {
+                    System.out.print(list.get(n).getNameCity() + " ");
+                    System.out.print(list.get(n).getNameWard() + " ");
+                    System.out.println(list.get(n).getNameTown());
+                }
+
+//                populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list, list0,
+//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+
+//                populationFebService.populationFebUpdate(CommonRequestDto.setApiResultList(list, list0,
+//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
             }
 
         } catch(Exception e) {

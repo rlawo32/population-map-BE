@@ -1,7 +1,6 @@
 package com.pm.pmproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.pm.pmproject.jpa.domain.populationJan.PopulationJan;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
