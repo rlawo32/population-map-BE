@@ -1,7 +1,6 @@
 package com.pm.pmproject.jpa.repository.populationJan;
 
-import com.pm.pmproject.jpa.domain.populationJan.PopulationJan;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.pm.pmproject.dto.PopulationResultDto;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,7 +18,7 @@ public class PopulationJanRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void batchInsert(List<PopulationJan> list) {
+    public void batchInsert(List<PopulationResultDto> list) {
         jdbcTemplate.batchUpdate(
                 "INSERT INTO population_jan (admin_code, standard_date, name_city, " +
                         "name_ward, name_town, pop_total, pop_m_total, pop_w_total) " +
@@ -27,7 +26,7 @@ public class PopulationJanRepository {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setLong(1, list.get(i).getId());
+                        ps.setLong(1, list.get(i).getAdminCode());
                         ps.setString(2, list.get(i).getStandardDate());
                         ps.setString(3, list.get(i).getNameCity());
                         ps.setString(4, list.get(i).getNameWard());
