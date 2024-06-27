@@ -1,6 +1,6 @@
 package com.pm.pmproject.jpa.repository.populationJan;
 
-import com.pm.pmproject.jpa.domain.populationJan.PopulationJan30s;
+import com.pm.pmproject.dto.Population30sDto;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,16 +18,25 @@ public class PopulationJan30sRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void batchInsert(List<PopulationJan30s> list) {
+    public void batchInsert(List<Population30sDto> list) {
         jdbcTemplate.batchUpdate(
                 "INSERT INTO population_jan_30s (admin_code, pop_age_m_30, pop_age_w_30, pop_age_m_31, " +
                         "pop_age_w_31, pop_age_m_32, pop_age_w_32, pop_age_m_33, pop_age_w_33, pop_age_m_34, " +
                         "pop_age_w_34, pop_age_m_35, pop_age_w_35, pop_age_m_36, pop_age_w_36, pop_age_m_37, " +
-                        "pop_age_w_37, pop_age_m_38, pop_age_w_38, pop_age_m_39, pop_age_w_39) " +
-                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        "pop_age_w_37, pop_age_m_38, pop_age_w_38, pop_age_m_39, pop_age_w_39, " +
+                        "pop_age_total, pop_age_m_total, pop_age_w_total) " +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
+                        Long mTotal = list.get(i).getPopAgeM30() + list.get(i).getPopAgeM31() + list.get(i).getPopAgeM32() +
+                                list.get(i).getPopAgeM33() + list.get(i).getPopAgeM34() + list.get(i).getPopAgeM35() +
+                                list.get(i).getPopAgeM36() + list.get(i).getPopAgeM37() + list.get(i).getPopAgeM38() +
+                                list.get(i).getPopAgeM39();
+                        Long wTotal = list.get(i).getPopAgeW30() + list.get(i).getPopAgeW31() + list.get(i).getPopAgeW32() +
+                                list.get(i).getPopAgeW33() + list.get(i).getPopAgeW34() + list.get(i).getPopAgeW35() +
+                                list.get(i).getPopAgeW36() + list.get(i).getPopAgeW37() + list.get(i).getPopAgeW38() +
+                                list.get(i).getPopAgeW39();
                         ps.setLong(1, list.get(i).getAdminCode());
                         ps.setLong(2, list.get(i).getPopAgeM30());
                         ps.setLong(3, list.get(i).getPopAgeW30());
@@ -49,6 +58,9 @@ public class PopulationJan30sRepository {
                         ps.setLong(19, list.get(i).getPopAgeW38());
                         ps.setLong(20, list.get(i).getPopAgeM39());
                         ps.setLong(21, list.get(i).getPopAgeW39());
+                        ps.setLong(22, mTotal + wTotal);
+                        ps.setLong(23, mTotal);
+                        ps.setLong(24, wTotal);
                     }
 
                     @Override
