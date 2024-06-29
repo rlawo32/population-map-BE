@@ -6,6 +6,7 @@ import com.pm.pmproject.jpa.repository.populationJan.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StopWatch;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,8 @@ public class PopulationJanService {
 
     @Transactional
     public void populationJanUpdate(CommonRequestDto commonRequestDto) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         try {
 
             populationJanRepository.batchInsert(commonRequestDto.getPopulationResultDto());
@@ -57,6 +60,8 @@ public class PopulationJanService {
         } catch(Exception e) {
             e.printStackTrace();
         }
+        stopWatch.stop();
+        System.out.println("작업시간 : " + stopWatch.getTotalTimeSeconds());
     }
 }
 
