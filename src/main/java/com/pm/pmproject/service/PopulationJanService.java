@@ -29,34 +29,34 @@ public class PopulationJanService {
     private final PopulationJan100sRepository populationJan100sRepository;
 
     @Transactional
-    public void populationJanUpdate(CommonRequestDto commonRequestDto) {
+    public void populationJanUpdate(List<Population0sDto> list) {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         try {
 
-            populationJanRepository.batchInsert(commonRequestDto.getPopulationResultDto());
+//            populationJanRepository.batchInsert(commonRequestDto.getPopulationResultDto());
 
-            populationJan0sRepository.batchInsert(commonRequestDto.getPopulation0sDto());
+            populationJan0sRepository.batchInsert(list);
 
-            populationJan10sRepository.batchInsert(commonRequestDto.getPopulation10sDto());
-
-            populationJan20sRepository.batchInsert(commonRequestDto.getPopulation20sDto());
-
-            populationJan30sRepository.batchInsert(commonRequestDto.getPopulation30sDto());
-
-            populationJan40sRepository.batchInsert(commonRequestDto.getPopulation40sDto());
-
-            populationJan50sRepository.batchInsert(commonRequestDto.getPopulation50sDto());
-
-            populationJan60sRepository.batchInsert(commonRequestDto.getPopulation60sDto());
-
-            populationJan70sRepository.batchInsert(commonRequestDto.getPopulation70sDto());
-
-            populationJan80sRepository.batchInsert(commonRequestDto.getPopulation80sDto());
-
-            populationJan90sRepository.batchInsert(commonRequestDto.getPopulation90sDto());
-
-            populationJan100sRepository.batchInsert(commonRequestDto.getPopulation100sDto());
+//            populationJan10sRepository.batchInsert(commonRequestDto.getPopulation10sDto());
+//
+//            populationJan20sRepository.batchInsert(commonRequestDto.getPopulation20sDto());
+//
+//            populationJan30sRepository.batchInsert(commonRequestDto.getPopulation30sDto());
+//
+//            populationJan40sRepository.batchInsert(commonRequestDto.getPopulation40sDto());
+//
+//            populationJan50sRepository.batchInsert(commonRequestDto.getPopulation50sDto());
+//
+//            populationJan60sRepository.batchInsert(commonRequestDto.getPopulation60sDto());
+//
+//            populationJan70sRepository.batchInsert(commonRequestDto.getPopulation70sDto());
+//
+//            populationJan80sRepository.batchInsert(commonRequestDto.getPopulation80sDto());
+//
+//            populationJan90sRepository.batchInsert(commonRequestDto.getPopulation90sDto());
+//
+//            populationJan100sRepository.batchInsert(commonRequestDto.getPopulation100sDto());
         } catch(Exception e) {
             e.printStackTrace();
         }

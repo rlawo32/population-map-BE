@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,17 +40,18 @@ public class PopulationMainService {
     @Scheduled(cron = "0 0/2 * * * *") // 10분마다
     public void schedulerPopulationUpdate() {
         try {
-            StopWatch stopWatch = new StopWatch();
-            stopWatch.start();
-            for(int i=1; i<=4; i++) {
+            List<Population0sDto> list = new ArrayList<>();
+            for(int i=1; i<=1; i++) {
                 // 1. URL 설정
                 StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/uddi:780a2373-bf11-4fb6-b3e4-ed4119571817");
                 // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
-                urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode(String.valueOf(i), "UTF-8"));
+                urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=1zfm3O6MusH4xNmea2J41ZdYEpwMmwp4AOgUvyRJHU1bNOcyxF6VX17CZKFpJeBeJTtw%2B%2BcKcEC7g%2BuguQI79g%3D%3D");
                 // 3. URL 객체 생성.
                 URL url = new URL(urlBuilder.toString());
+                StopWatch stopWatch = new StopWatch();
+                stopWatch.start();
                 // 4. 요청하고자 하는 URL과 통신하기 위한 Connection 객체 생성.
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 // 5. 통신을 위한 메소드 SET.
@@ -79,6 +81,8 @@ public class PopulationMainService {
                 // 10. 객체 해제.
                 br.close();
                 conn.disconnect();
+                stopWatch.stop();
+                System.out.println("통신시간 : " + stopWatch.getTotalTimeSeconds());
 
                 ObjectMapper objectMapper = new ObjectMapper();
 
@@ -86,28 +90,37 @@ public class PopulationMainService {
                 JsonNode node2 = node1.findValue("data");
 
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                // 아래에서 반복문, dto 세대별로 진행
-                List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
-                List<Population0sDto> list0 = Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class));
-                List<Population10sDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, Population10sDto[].class));
-                List<Population20sDto> list2 = Arrays.asList(objectMapper.treeToValue(node2, Population20sDto[].class));
-                List<Population30sDto> list3 = Arrays.asList(objectMapper.treeToValue(node2, Population30sDto[].class));
-                List<Population40sDto> list4 = Arrays.asList(objectMapper.treeToValue(node2, Population40sDto[].class));
-                List<Population50sDto> list5 = Arrays.asList(objectMapper.treeToValue(node2, Population50sDto[].class));
-                List<Population60sDto> list6 = Arrays.asList(objectMapper.treeToValue(node2, Population60sDto[].class));
-                List<Population70sDto> list7 = Arrays.asList(objectMapper.treeToValue(node2, Population70sDto[].class));
-                List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
-                List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
-                List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
 
-//                populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list, list0,
+                List<Population0sDto> list0 = Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class));
+
+                for(int j=0; j<100; j++) {
+                    list.addAll(list0);
+                }
+
+                // 아래에서 반복문, dto 세대별로 진행
+//                List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
+//                list.addAll(Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class)));
+//                List<Population10sDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, Population10sDto[].class));
+//                List<Population20sDto> list2 = Arrays.asList(objectMapper.treeToValue(node2, Population20sDto[].class));
+//                List<Population30sDto> list3 = Arrays.asList(objectMapper.treeToValue(node2, Population30sDto[].class));
+//                List<Population40sDto> list4 = Arrays.asList(objectMapper.treeToValue(node2, Population40sDto[].class));
+//                List<Population50sDto> list5 = Arrays.asList(objectMapper.treeToValue(node2, Population50sDto[].class));
+//                List<Population60sDto> list6 = Arrays.asList(objectMapper.treeToValue(node2, Population60sDto[].class));
+//                List<Population70sDto> list7 = Arrays.asList(objectMapper.treeToValue(node2, Population70sDto[].class));
+//                List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
+//                List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
+//                List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
+
+
+//                populationFebService.populationFebUpdate(CommonRequestDto.setApiResultList(list, list0,
 //                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
 
-                populationFebService.populationFebUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+//                populationMarService.populationMarUpdate(CommonRequestDto.setApiResultList(list, list0,
+//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
             }
-            stopWatch.stop();
-            System.out.println("작업시간 : " + stopWatch.getTotalTimeSeconds());
+
+            populationJanService.populationJanUpdate(list);
+//            populationMarService.populationMarUpdate(list);
         } catch(Exception e) {
             e.printStackTrace();
         }
