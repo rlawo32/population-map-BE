@@ -1,19 +1,17 @@
 package com.pm.pmproject.jpa.domain.populationMar;
 
-import com.pm.pmproject.dto.PopulationResultDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Persistable;
 
 @NoArgsConstructor
 @Entity
 @Getter
 @Table(name = "PopulationMar")
-public class PopulationMar implements Persistable<Long> {
+public class PopulationMar {
 
     @Id
     @Column(name = "admin_code")
@@ -39,25 +37,4 @@ public class PopulationMar implements Persistable<Long> {
 
     @Column(name = "pop_w_total") // 해당 지역 여자 전체 인구수
     private Long popWTotal;
-
-    @Override
-    public boolean isNew() {
-        return true;
-    }
-
-    @Override
-    public Long getId() {
-        return this.adminCode;
-    }
-
-    public PopulationMar(PopulationResultDto populationResultDto) {
-        this.adminCode = populationResultDto.getAdminCode();
-        this.standardDate = populationResultDto.getStandardDate();
-        this.nameCity = populationResultDto.getNameCity();
-        this.nameWard = populationResultDto.getNameWard();
-        this.nameTown = populationResultDto.getNameTown();
-        this.popTotal = populationResultDto.getPopTotal();
-        this.popMTotal = populationResultDto.getPopMTotal();
-        this.popWTotal = populationResultDto.getPopWTotal();
-    }
 }
