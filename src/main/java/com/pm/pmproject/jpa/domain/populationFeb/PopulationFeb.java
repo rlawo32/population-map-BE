@@ -13,7 +13,7 @@ import org.springframework.data.domain.Persistable;
 @Entity
 @Getter
 @Table(name = "PopulationFeb")
-public class PopulationFeb implements Persistable<Long> {
+public class PopulationFeb {
 
     @Id
     @Column(name = "admin_code")
@@ -39,25 +39,4 @@ public class PopulationFeb implements Persistable<Long> {
 
     @Column(name = "pop_w_total") // 해당 지역 여자 전체 인구수
     private Long popWTotal;
-
-    @Override
-    public boolean isNew() {
-        return true;
-    }
-
-    @Override
-    public Long getId() {
-        return this.adminCode;
-    }
-
-    public PopulationFeb(PopulationResultDto populationResultDto) {
-        this.adminCode = populationResultDto.getAdminCode();
-        this.standardDate = populationResultDto.getStandardDate();
-        this.nameCity = populationResultDto.getNameCity();
-        this.nameWard = populationResultDto.getNameWard();
-        this.nameTown = populationResultDto.getNameTown();
-        this.popTotal = populationResultDto.getPopTotal();
-        this.popMTotal = populationResultDto.getPopMTotal();
-        this.popWTotal = populationResultDto.getPopWTotal();
-    }
 }
