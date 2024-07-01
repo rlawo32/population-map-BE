@@ -1,15 +1,10 @@
 package com.pm.pmproject.service;
 
 import com.pm.pmproject.dto.*;
-import com.pm.pmproject.jpa.domain.populationJan.*;
 import com.pm.pmproject.jpa.repository.populationJan.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StopWatch;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -29,14 +24,11 @@ public class PopulationJanService {
     private final PopulationJan100sRepository populationJan100sRepository;
 
     @Transactional
-    public void populationJanUpdate(List<Population0sDto> list) {
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
+    public void populationJanUpdate(CommonRequestDto commonRequestDto) {
         try {
-
 //            populationJanRepository.batchInsert(commonRequestDto.getPopulationResultDto());
 
-            populationJan0sRepository.batchInsert(list);
+            populationJan0sRepository.batchInsert(commonRequestDto.getPopulation0sDto());
 
 //            populationJan10sRepository.batchInsert(commonRequestDto.getPopulation10sDto());
 //
@@ -60,8 +52,6 @@ public class PopulationJanService {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        stopWatch.stop();
-        System.out.println("작업시간 : " + stopWatch.getTotalTimeSeconds());
     }
 }
 
