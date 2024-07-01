@@ -30,65 +30,29 @@ public class PopulationFebService {
     @Transactional
     public void populationFebUpdate(CommonRequestDto commonRequestDto) {
         try {
-            List<PopulationFeb> repoListFeb = commonRequestDto.getPopulationResultDto()
-                    .stream().map(PopulationFeb::new).collect(Collectors.toList());
+            populationFebRepository.batchInsert(commonRequestDto.getPopulationResultDto());
 
-            populationFebRepository.batchInsert(repoListFeb);
+            populationFeb0sRepository.batchInsert(commonRequestDto.getPopulation0sDto());
 
-            List<PopulationFeb0s> repoListFeb0s  = commonRequestDto.getPopulation0sDto()
-                    .stream().map(PopulationFeb0s::new).collect(Collectors.toList());
+            populationFeb10sRepository.batchInsert(commonRequestDto.getPopulation10sDto());
 
-            populationFeb0sRepository.batchInsert(repoListFeb0s);
+            populationFeb20sRepository.batchInsert(commonRequestDto.getPopulation20sDto());
 
-            List<PopulationFeb10s> repoListFeb10s  = commonRequestDto.getPopulation10sDto()
-                    .stream().map(PopulationFeb10s::new).collect(Collectors.toList());
+            populationFeb30sRepository.batchInsert(commonRequestDto.getPopulation30sDto());
 
-            populationFeb10sRepository.batchInsert(repoListFeb10s);
+            populationFeb40sRepository.batchInsert(commonRequestDto.getPopulation40sDto());
 
-            List<PopulationFeb20s> repoListFeb20s  = commonRequestDto.getPopulation20sDto()
-                    .stream().map(PopulationFeb20s::new).collect(Collectors.toList());
+            populationFeb50sRepository.batchInsert(commonRequestDto.getPopulation50sDto());
 
-            populationFeb20sRepository.batchInsert(repoListFeb20s);
+            populationFeb60sRepository.batchInsert(commonRequestDto.getPopulation60sDto());
 
-            List<PopulationFeb30s> repoListFeb30s  = commonRequestDto.getPopulation30sDto()
-                    .stream().map(PopulationFeb30s::new).collect(Collectors.toList());
+            populationFeb70sRepository.batchInsert(commonRequestDto.getPopulation70sDto());
 
-            populationFeb30sRepository.batchInsert(repoListFeb30s);
+            populationFeb80sRepository.batchInsert(commonRequestDto.getPopulation80sDto());
 
-            List<PopulationFeb40s> repoListFeb40s  = commonRequestDto.getPopulation40sDto()
-                    .stream().map(PopulationFeb40s::new).collect(Collectors.toList());
+            populationFeb90sRepository.batchInsert(commonRequestDto.getPopulation90sDto());
 
-            populationFeb40sRepository.batchInsert(repoListFeb40s);
-
-            List<PopulationFeb50s> repoListFeb50s  = commonRequestDto.getPopulation50sDto()
-                    .stream().map(PopulationFeb50s::new).collect(Collectors.toList());
-
-            populationFeb50sRepository.batchInsert(repoListFeb50s);
-
-            List<PopulationFeb60s> repoListFeb60s  = commonRequestDto.getPopulation60sDto()
-                    .stream().map(PopulationFeb60s::new).collect(Collectors.toList());
-
-            populationFeb60sRepository.batchInsert(repoListFeb60s);
-
-            List<PopulationFeb70s> repoListFeb70s  = commonRequestDto.getPopulation70sDto()
-                    .stream().map(PopulationFeb70s::new).collect(Collectors.toList());
-
-            populationFeb70sRepository.batchInsert(repoListFeb70s);
-
-            List<PopulationFeb80s> repoListFeb80s  = commonRequestDto.getPopulation80sDto()
-                    .stream().map(PopulationFeb80s::new).collect(Collectors.toList());
-
-            populationFeb80sRepository.batchInsert(repoListFeb80s);
-
-            List<PopulationFeb90s> repoListFeb90s  = commonRequestDto.getPopulation90sDto()
-                    .stream().map(PopulationFeb90s::new).collect(Collectors.toList());
-
-            populationFeb90sRepository.batchInsert(repoListFeb90s);
-
-            List<PopulationFeb100s> repoListFeb100s  = commonRequestDto.getPopulation100sDto()
-                    .stream().map(PopulationFeb100s::new).collect(Collectors.toList());
-
-            populationFeb100sRepository.batchInsert(repoListFeb100s);
+            populationFeb100sRepository.batchInsert(commonRequestDto.getPopulation100sDto());
         } catch(Exception e) {
             e.printStackTrace();
         }
