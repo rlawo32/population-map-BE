@@ -13,11 +13,20 @@ import org.springframework.data.domain.Persistable;
 @Entity
 @Getter
 @Table(name = "PopulationFeb_70s")
-public class PopulationFeb70s implements Persistable<Long> {
+public class PopulationFeb70s {
 
     @Id
     @Column(name = "admin_code")
     private Long adminCode;
+
+    @Column(name = "pop_age_total")
+    private Long popAgeTotal;
+
+    @Column(name = "pop_age_m_total")
+    private Long popAgeMTotal;
+
+    @Column(name = "pop_age_w_total")
+    private Long popAgeWTotal;
 
     @Column(name = "pop_age_m_70")
     private Long popAgeM70;
@@ -78,39 +87,4 @@ public class PopulationFeb70s implements Persistable<Long> {
 
     @Column(name = "pop_age_w_79")
     private Long popAgeW79;
-
-    @Override
-    public boolean isNew() {
-        return true;
-    }
-
-    @Override
-    public Long getId() {
-        return this.adminCode;
-    }
-
-    public PopulationFeb70s(Population70sDto population70sDto) {
-        this.adminCode = population70sDto.getAdminCode();
-        this.popAgeM70 = population70sDto.getPopAgeM70();
-        this.popAgeW70 = population70sDto.getPopAgeW70();
-        this.popAgeM71 = population70sDto.getPopAgeM71();
-        this.popAgeW71 = population70sDto.getPopAgeW71();
-        this.popAgeM72 = population70sDto.getPopAgeM72();
-        this.popAgeW72 = population70sDto.getPopAgeW72();
-        this.popAgeM73 = population70sDto.getPopAgeM73();
-        this.popAgeW73 = population70sDto.getPopAgeW73();
-        this.popAgeM74 = population70sDto.getPopAgeM74();
-        this.popAgeW74 = population70sDto.getPopAgeW74();
-        this.popAgeM75 = population70sDto.getPopAgeM75();
-        this.popAgeW75 = population70sDto.getPopAgeW75();
-        this.popAgeM76 = population70sDto.getPopAgeM76();
-        this.popAgeW76 = population70sDto.getPopAgeW76();
-        this.popAgeM77 = population70sDto.getPopAgeM77();
-        this.popAgeW77 = population70sDto.getPopAgeW77();
-        this.popAgeM78 = population70sDto.getPopAgeM78();
-        this.popAgeW78 = population70sDto.getPopAgeW78();
-        this.popAgeM79 = population70sDto.getPopAgeM79();
-        this.popAgeW79 = population70sDto.getPopAgeW79();
-    }
-
 }
