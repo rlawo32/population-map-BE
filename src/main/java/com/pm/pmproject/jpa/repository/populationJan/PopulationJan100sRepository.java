@@ -1,6 +1,7 @@
 package com.pm.pmproject.jpa.repository.populationJan;
 
 import com.pm.pmproject.dto.Population100sDto;
+import com.pm.pmproject.util.PopulationTotalUtil;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,14 +30,8 @@ public class PopulationJan100sRepository {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        Long mTotal = list.get(i).getPopAgeM100() + list.get(i).getPopAgeM101() + list.get(i).getPopAgeM102() +
-                                list.get(i).getPopAgeM103() + list.get(i).getPopAgeM104() + list.get(i).getPopAgeM105() +
-                                list.get(i).getPopAgeM106() + list.get(i).getPopAgeM107() + list.get(i).getPopAgeM108() +
-                                list.get(i).getPopAgeM109();
-                        Long wTotal = list.get(i).getPopAgeW100() + list.get(i).getPopAgeW101() + list.get(i).getPopAgeW102() +
-                                list.get(i).getPopAgeW103() + list.get(i).getPopAgeW104() + list.get(i).getPopAgeW105() +
-                                list.get(i).getPopAgeW106() + list.get(i).getPopAgeW107() + list.get(i).getPopAgeW108() +
-                                list.get(i).getPopAgeW109();
+                        Long mTotal = PopulationTotalUtil.populationTotal100s("M", list, i);
+                        Long wTotal = PopulationTotalUtil.populationTotal100s("W", list, i);
                         ps.setLong(1, list.get(i).getAdminCode());
                         ps.setLong(2, list.get(i).getPopAgeM100());
                         ps.setLong(3, list.get(i).getPopAgeW100());
