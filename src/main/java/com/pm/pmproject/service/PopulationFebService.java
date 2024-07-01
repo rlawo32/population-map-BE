@@ -1,14 +1,10 @@
 package com.pm.pmproject.service;
 
 import com.pm.pmproject.dto.CommonRequestDto;
-import com.pm.pmproject.jpa.domain.populationFeb.*;
 import com.pm.pmproject.jpa.repository.populationFeb.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
