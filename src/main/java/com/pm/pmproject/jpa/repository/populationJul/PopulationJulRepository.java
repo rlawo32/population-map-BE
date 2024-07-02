@@ -1,6 +1,6 @@
 package com.pm.pmproject.jpa.repository.populationJul;
 
-import com.pm.pmproject.jpa.domain.populationJul.PopulationJul;
+import com.pm.pmproject.dto.PopulationResultDto;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,7 +18,7 @@ public class PopulationJulRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void batchInsert(List<PopulationJul> list) {
+    public void batchInsert(List<PopulationResultDto> list) {
         jdbcTemplate.batchUpdate(
                 "INSERT INTO population_jul (admin_code, standard_date, name_city, " +
                         "name_ward, name_town, pop_total, pop_m_total, pop_w_total) " +
