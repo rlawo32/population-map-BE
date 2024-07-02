@@ -1,23 +1,30 @@
 package com.pm.pmproject.jpa.domain.populationAug;
 
-import com.pm.pmproject.dto.Population50sDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Persistable;
 
 @NoArgsConstructor
 @Entity
 @Getter
 @Table(name = "PopulationAug_50s")
-public class PopulationAug50s implements Persistable<Long> {
+public class PopulationAug50s {
 
     @Id
     @Column(name = "admin_code")
     private Long adminCode;
+
+    @Column(name = "pop_age_total")
+    private Long popAgeTotal;
+
+    @Column(name = "pop_age_m_total")
+    private Long popAgeMTotal;
+
+    @Column(name = "pop_age_w_total")
+    private Long popAgeWTotal;
 
     @Column(name = "pop_age_m_50")
     private Long popAgeM50;
@@ -78,38 +85,4 @@ public class PopulationAug50s implements Persistable<Long> {
 
     @Column(name = "pop_age_w_59")
     private Long popAgeW59;
-
-    @Override
-    public boolean isNew() {
-        return true;
-    }
-
-    @Override
-    public Long getId() {
-        return this.adminCode;
-    }
-
-    public PopulationAug50s(Population50sDto population50sDto) {
-        this.adminCode = population50sDto.getAdminCode();
-        this.popAgeM50 = population50sDto.getPopAgeM50();
-        this.popAgeW50 = population50sDto.getPopAgeW50();
-        this.popAgeM51 = population50sDto.getPopAgeM51();
-        this.popAgeW51 = population50sDto.getPopAgeW51();
-        this.popAgeM52 = population50sDto.getPopAgeM52();
-        this.popAgeW52 = population50sDto.getPopAgeW52();
-        this.popAgeM53 = population50sDto.getPopAgeM53();
-        this.popAgeW53 = population50sDto.getPopAgeW53();
-        this.popAgeM54 = population50sDto.getPopAgeM54();
-        this.popAgeW54 = population50sDto.getPopAgeW54();
-        this.popAgeM55 = population50sDto.getPopAgeM55();
-        this.popAgeW55 = population50sDto.getPopAgeW55();
-        this.popAgeM56 = population50sDto.getPopAgeM56();
-        this.popAgeW56 = population50sDto.getPopAgeW56();
-        this.popAgeM57 = population50sDto.getPopAgeM57();
-        this.popAgeW57 = population50sDto.getPopAgeW57();
-        this.popAgeM58 = population50sDto.getPopAgeM58();
-        this.popAgeW58 = population50sDto.getPopAgeW58();
-        this.popAgeM59 = population50sDto.getPopAgeM59();
-        this.popAgeW59 = population50sDto.getPopAgeW59();
-    }
 }

@@ -1,7 +1,7 @@
 package com.pm.pmproject.jpa.repository.populationAug;
 
-import com.pm.pmproject.jpa.domain.populationAug.PopulationAug50s;
-import com.pm.pmproject.jpa.domain.populationJul.PopulationJul50s;
+import com.pm.pmproject.dto.Population50sDto;
+import com.pm.pmproject.util.PopulationTotalUtil;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,16 +19,19 @@ public class PopulationAug50sRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void batchInsert(List<PopulationAug50s> list) {
+    public void batchInsert(List<Population50sDto> list) {
         jdbcTemplate.batchUpdate(
                 "INSERT INTO population_aug_50s (admin_code, pop_age_m_50, pop_age_w_50, pop_age_m_51, " +
                         "pop_age_w_51, pop_age_m_52, pop_age_w_52, pop_age_m_53, pop_age_w_53, pop_age_m_54, " +
                         "pop_age_w_54, pop_age_m_55, pop_age_w_55, pop_age_m_56, pop_age_w_56, pop_age_m_57, " +
-                        "pop_age_w_57, pop_age_m_58, pop_age_w_58, pop_age_m_59, pop_age_w_59) " +
-                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        "pop_age_w_57, pop_age_m_58, pop_age_w_58, pop_age_m_59, pop_age_w_59, " +
+                        "pop_age_total, pop_age_m_total, pop_age_w_total) " +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
+                        Long mTotal = PopulationTotalUtil.populationTotal50s("M", list, i);
+                        Long wTotal = PopulationTotalUtil.populationTotal50s("W", list, i);
                         ps.setLong(1, list.get(i).getAdminCode());
                         ps.setLong(2, list.get(i).getPopAgeM50());
                         ps.setLong(3, list.get(i).getPopAgeW50());
@@ -50,6 +53,9 @@ public class PopulationAug50sRepository {
                         ps.setLong(19, list.get(i).getPopAgeW58());
                         ps.setLong(20, list.get(i).getPopAgeM59());
                         ps.setLong(21, list.get(i).getPopAgeW59());
+                        ps.setLong(22, mTotal + wTotal);
+                        ps.setLong(23, mTotal);
+                        ps.setLong(24, wTotal);
                     }
 
                     @Override
