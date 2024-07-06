@@ -1,5 +1,6 @@
 package com.pm.pmproject.service;
 
+import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,10 +48,11 @@ public class PopulationMainService {
             for(int i=1; i<=1; i++) {
 
                 // 1. URL 설정
-                StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/uddi:780a2373-bf11-4fb6-b3e4-ed4119571817");
+//                StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/uddi:780a2373-bf11-4fb6-b3e4-ed4119571817");
+                StringBuilder urlBuilder = new StringBuilder("https://infuser.odcloud.kr/oas/docs?namespace=15097972/v1");
                 // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
-                urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
-                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
+//                urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
+//                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=" + apiKey);
                 // 3. URL 객체 생성.
                 URL url = new URL(urlBuilder.toString());
@@ -91,25 +93,38 @@ public class PopulationMainService {
                 ObjectMapper objectMapper = new ObjectMapper();
 
                 JsonNode node1 = objectMapper.readTree(sb.toString());
-                JsonNode node2 = node1.findValue("data");
+                JsonNode node2 = node1.findValue("paths");
 
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                System.out.println(node2);
 
-                // 아래에서 반복문, dto 세대별로 진행
-                List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
-                List<Population0sDto> list0 = Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class));
-                List<Population10sDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, Population10sDto[].class));
-                List<Population20sDto> list2 = Arrays.asList(objectMapper.treeToValue(node2, Population20sDto[].class));
-                List<Population30sDto> list3 = Arrays.asList(objectMapper.treeToValue(node2, Population30sDto[].class));
-                List<Population40sDto> list4 = Arrays.asList(objectMapper.treeToValue(node2, Population40sDto[].class));
-                List<Population50sDto> list5 = Arrays.asList(objectMapper.treeToValue(node2, Population50sDto[].class));
-                List<Population60sDto> list6 = Arrays.asList(objectMapper.treeToValue(node2, Population60sDto[].class));
-                List<Population70sDto> list7 = Arrays.asList(objectMapper.treeToValue(node2, Population70sDto[].class));
-                List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
-                List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
-                List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
+                List<JsonNode> node3 = node2.findValues("get");
+                System.out.println(node3.size());
+                System.out.print(node3.get(0).get("summary"));
+                System.out.println(node3.get(0).get("operationId"));
+                System.out.print(node3.get(1).get("summary"));
+                System.out.println(node3.get(1).get("operationId"));
 
-                System.out.println(list.get(0).getNameCity());
+                List<PopulationSwaggerDto> list = Arrays.asList(objectMapper.treeToValue((TreeNode) node3, PopulationSwaggerDto[].class));
+
+
+                System.out.println(list.size());
+
+//                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//
+//                // 아래에서 반복문, dto 세대별로 진행
+//                List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
+//                List<Population0sDto> list0 = Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class));
+//                List<Population10sDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, Population10sDto[].class));
+//                List<Population20sDto> list2 = Arrays.asList(objectMapper.treeToValue(node2, Population20sDto[].class));
+//                List<Population30sDto> list3 = Arrays.asList(objectMapper.treeToValue(node2, Population30sDto[].class));
+//                List<Population40sDto> list4 = Arrays.asList(objectMapper.treeToValue(node2, Population40sDto[].class));
+//                List<Population50sDto> list5 = Arrays.asList(objectMapper.treeToValue(node2, Population50sDto[].class));
+//                List<Population60sDto> list6 = Arrays.asList(objectMapper.treeToValue(node2, Population60sDto[].class));
+//                List<Population70sDto> list7 = Arrays.asList(objectMapper.treeToValue(node2, Population70sDto[].class));
+//                List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
+//                List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
+//                List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
+
 
 //                populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list, list0,
 //                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
