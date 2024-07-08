@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -104,10 +105,8 @@ public class PopulationMainService {
                 System.out.print(node3.get(1).get("summary"));
                 System.out.println(node3.get(1).get("operationId"));
 
-                List<PopulationSwaggerDto> list = Arrays.asList(objectMapper.treeToValue((TreeNode) node3, PopulationSwaggerDto[].class));
-
-
-                System.out.println(list.size());
+                LocalDateTime ldt = LocalDateTime.now();
+                System.out.println(ldt.getMonth());
 
 //                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //
