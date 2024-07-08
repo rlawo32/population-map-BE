@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -107,6 +108,12 @@ public class PopulationMainService {
 
                 LocalDateTime ldt = LocalDateTime.now();
                 System.out.println(ldt.getMonth());
+                System.out.println(ldt.getMonthValue());
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd");
+                String formatDate = ldt.format(dtf);
+
+                System.out.println(formatDate);
 
 //                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //
