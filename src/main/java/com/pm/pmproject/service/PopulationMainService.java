@@ -107,13 +107,18 @@ public class PopulationMainService {
                 System.out.println(node3.get(1).get("operationId"));
 
                 LocalDateTime ldt = LocalDateTime.now();
-                System.out.println(ldt.getMonth());
-                System.out.println(ldt.getMonthValue());
 
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMM");
                 String formatDate = ldt.format(dtf);
 
-                System.out.println(formatDate);
+                for(int n=0; n<node3.size(); n++) {
+                    String summary = node3.get(n).get("summary").asText();
+
+                    int p1 = summary.lastIndexOf("_");
+                    String p2 = summary.substring(p1+1, p1+7);
+
+                    System.out.println(p2);
+                }
 
 //                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //
