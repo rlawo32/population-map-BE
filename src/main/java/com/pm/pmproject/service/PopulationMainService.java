@@ -93,33 +93,25 @@ public class PopulationMainService {
 
             JsonNode node1 = objectMapper.readTree(res.body());
             JsonNode node2 = node1.findValue("paths");
-
-
-            System.out.println(node2);
-
             List<JsonNode> node3 = node2.findValues("get");
-            System.out.println(node3.size());
-            System.out.print(node3.get(0).get("summary"));
-            System.out.println(node3.get(0).get("operationId"));
-            System.out.print(node3.get(1).get("summary"));
-            System.out.println(node3.get(1).get("operationId"));
 
-            LocalDateTime ldt = LocalDateTime.now().minusMonths(1);
-
+            LocalDateTime ldt = LocalDateTime.now().minusMonths(2);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMM");
-            String formatDate = ldt.format(dtf);
-            System.out.println(formatDate);
-
-
-            System.out.println("DATA");
+            String latestMonth = ldt.format(dtf);
+            String operationId = "";
 
             for(int n=0; n<node3.size(); n++) {
                 String summary = node3.get(n).get("summary").asText();
-
                 int p1 = summary.lastIndexOf("_");
                 String p2 = summary.substring(p1+1, p1+7);
 
-                System.out.println(p2);
+                if(latestMonth.equals(p2)) {
+                    operationId = node3.get(n).get("operationId").asText();
+                }
+            }
+
+            if(operationId.length() > 0) {
+                SchedulerPopulationUpdate(operationId);
             }
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
@@ -132,9 +124,11 @@ public class PopulationMainService {
 
     private void SchedulerPopulationUpdate(String apiUrl) {
         try {
+            String subUrl = apiUrl.substring(7);
+
             for(int i=1; i<=1; i++) {
                 // 1. URL 설정 uddi:780a2373-bf11-4fb6-b3e4-ed4119571817
-                StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/" + apiUrl);
+                StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/" + subUrl);
 
                 // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
                 urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
@@ -189,6 +183,8 @@ public class PopulationMainService {
 
                 JsonNode node1 = objectMapper.readTree(sb.toString());
                 JsonNode node2 = node1.findValue("data");
+
+                System.out.println(node2);
 
 //                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //
