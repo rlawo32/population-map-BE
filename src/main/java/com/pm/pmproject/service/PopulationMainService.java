@@ -111,7 +111,7 @@ public class PopulationMainService {
             }
 
             if(operationId.length() > 0) {
-                String nameMonth = ldt.getMonth().name();
+                String nameMonth = ldt.getMonth().name().substring(0, 3);
                 SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
             }
         } catch (UnsupportedEncodingException ex) {
@@ -136,7 +136,6 @@ public class PopulationMainService {
                 urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=" + apiKey);
-                System.out.println(urlBuilder.toString());
 
                 // 3. URL 객체 생성.
                 URL url = new URL(urlBuilder.toString());
