@@ -111,7 +111,7 @@ public class PopulationMainService {
             }
 
             if(operationId.length() > 0) {
-                SchedulerPopulationUpdate(operationId);
+                SchedulerPopulationUpdate(operationId, latestMonth);
             }
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
@@ -122,9 +122,11 @@ public class PopulationMainService {
         }
     }
 
-    private void SchedulerPopulationUpdate(String apiUrl) {
+    private void SchedulerPopulationUpdate(String apiUrl, String updateMonth) {
         try {
-            String subUrl = apiUrl.substring(7);
+            String subUrl = apiUrl.substring(3);
+            System.out.println(subUrl);
+            System.out.println(updateMonth + " - 통신 시작 ");
 
             for(int i=1; i<=1; i++) {
                 // 1. URL 설정 uddi:780a2373-bf11-4fb6-b3e4-ed4119571817
@@ -134,6 +136,7 @@ public class PopulationMainService {
                 urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=" + apiKey);
+                System.out.println(urlBuilder.toString());
 
                 // 3. URL 객체 생성.
                 URL url = new URL(urlBuilder.toString());
@@ -151,7 +154,7 @@ public class PopulationMainService {
                 conn.setConnectTimeout(20000);
 
                 // 7. 통신 응답 코드 확인.
-                System.out.print("Swagger 통신 결과 : ");
+                System.out.print(i + "번째 통신 결과 : ");
                 if(conn.getResponseCode() == 200) {
                     System.out.println("성공");
                 } else {
