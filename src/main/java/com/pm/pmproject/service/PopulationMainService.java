@@ -111,7 +111,8 @@ public class PopulationMainService {
             }
 
             if(operationId.length() > 0) {
-                SchedulerPopulationUpdate(operationId, latestMonth);
+                String nameMonth = ldt.getMonth().name();
+                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
             }
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
@@ -122,11 +123,10 @@ public class PopulationMainService {
         }
     }
 
-    private void SchedulerPopulationUpdate(String apiUrl, String updateMonth) {
+    private void SchedulerPopulationUpdate(String apiUrl, String updateMonth, String updateName) {
         try {
             String subUrl = apiUrl.substring(3);
-            System.out.println(subUrl);
-            System.out.println("[" + updateMonth + "] - 통신 시작 ");
+            System.out.println("[" + updateMonth + "] " + updateName + " - 통신 시작 ");
 
             for(int i=1; i<=1; i++) {
                 // 1. URL 설정 uddi:780a2373-bf11-4fb6-b3e4-ed4119571817
@@ -189,6 +189,7 @@ public class PopulationMainService {
 
                 System.out.println(node2);
 
+
 //                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //
 //                // 아래에서 반복문, dto 세대별로 진행
@@ -205,6 +206,31 @@ public class PopulationMainService {
 //                List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
 //                List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
 
+                if(updateName.equals("JAN")) {
+
+                } else if(updateName.equals("FEB")) {
+
+                } else if(updateName.equals("MAR")) {
+
+                } else if(updateName.equals("APR")) {
+
+                } else if(updateName.equals("MAY")) {
+
+                } else if(updateName.equals("JUN")) {
+
+                } else if(updateName.equals("JUL")) {
+
+                } else if(updateName.equals("AUG")) {
+
+                } else if(updateName.equals("SEP")) {
+
+                } else if(updateName.equals("OCT")) {
+
+                } else if(updateName.equals("NOV")) {
+
+                } else if(updateName.equals("DEC")) {
+
+                }
 
 //                populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list, list0,
 //                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
