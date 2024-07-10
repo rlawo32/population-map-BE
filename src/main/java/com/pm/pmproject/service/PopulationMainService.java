@@ -126,7 +126,7 @@ public class PopulationMainService {
         try {
             String subUrl = apiUrl.substring(3);
             System.out.println(subUrl);
-            System.out.println(updateMonth + " - 통신 시작 ");
+            System.out.println("[" + updateMonth + "] - 통신 시작 ");
 
             for(int i=1; i<=1; i++) {
                 // 1. URL 설정 uddi:780a2373-bf11-4fb6-b3e4-ed4119571817
