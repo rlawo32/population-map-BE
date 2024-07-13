@@ -37,8 +37,9 @@ dependencies {
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.8'
 	// jackson dependency
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.2'
-	// swagger dependency
-
+	// postgresql dependency
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
+	runtimeOnly 'org.postgresql:postgresql'
 }
 
 tasks.named('test') {
