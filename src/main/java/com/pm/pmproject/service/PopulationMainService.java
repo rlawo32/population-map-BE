@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pm.pmproject.dto.*;
+import com.pm.pmproject.jpa.repository.test.TestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -48,6 +49,7 @@ public class PopulationMainService {
     private final PopulationOctService populationOctService;
     private final PopulationNovService populationNovService;
     private final PopulationDecService populationDecService;
+    private final TestRepository testRepository;
 
     @Scheduled(cron = "0 0/1 * * * *") // 10분마다
     public void SchedulerMonthCheckWithSwagger() {
@@ -98,20 +100,26 @@ public class PopulationMainService {
             String latestMonth = ldt.format(dtf);
             String operationId = "";
 
-            for(int n=0; n<node3.size(); n++) {
-                String summary = node3.get(n).get("summary").asText();
-                int p1 = summary.lastIndexOf("_");
-                String p2 = summary.substring(p1+1, p1+7);
+            TestDto[] testDto = { new TestDto(1L, "test1"), new TestDto(2L, "test2") };
 
-                if(latestMonth.equals(p2)) {
-                    operationId = node3.get(n).get("operationId").asText();
-                }
-            }
+            List<TestDto> list = Arrays.asList(testDto);
 
-            if(operationId.length() > 0) {
-                String nameMonth = ldt.getMonth().name().substring(0, 3);
-                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
-            }
+            testRepository.batchInsert(list);
+
+//            for(int n=0; n<node3.size(); n++) {
+//                String summary = node3.get(n).get("summary").asText();
+//                int p1 = summary.lastIndexOf("_");
+//                String p2 = summary.substring(p1+1, p1+7);
+//
+//                if(latestMonth.equals(p2)) {
+//                    operationId = node3.get(n).get("operationId").asText();
+//                }
+//            }
+//
+//            if(operationId.length() > 0) {
+//                String nameMonth = ldt.getMonth().name().substring(0, 3);
+//                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
+//            }
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
         } catch (IOException ex) {
