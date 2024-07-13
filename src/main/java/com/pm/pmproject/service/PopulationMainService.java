@@ -49,8 +49,6 @@ public class PopulationMainService {
     private final PopulationNovService populationNovService;
     private final PopulationDecService populationDecService;
 
-//    @Scheduled(cron = "0 0 0 * * ?") // 매일 24시
-//    @Scheduled(cron = "0 0 0/6 * * *") // 6시간마다
     @Scheduled(cron = "0 0/1 * * * *") // 10분마다
     public void SchedulerMonthCheckWithSwagger() {
         try {
@@ -185,8 +183,6 @@ public class PopulationMainService {
                 JsonNode node1 = objectMapper.readTree(sb.toString());
                 JsonNode node2 = node1.findValue("data");
 
-                System.out.println(node2);
-
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 //                List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
@@ -240,7 +236,6 @@ public class PopulationMainService {
 //                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 }
             }
-
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
         } catch (IOException ex) {
