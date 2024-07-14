@@ -21,12 +21,12 @@ public class PopulationAug100sRepository {
 
     public void batchInsert(List<Population100sDto> list) {
         jdbcTemplate.batchUpdate(
-                "INSERT INTO population_aug_100s (admin_code, pop_age_m_100, pop_age_w_100, pop_age_m_101, " +
+                "insert into population_aug_100s (admin_code, pop_age_m_100, pop_age_w_100, pop_age_m_101, " +
                         "pop_age_w_101, pop_age_m_102, pop_age_w_102, pop_age_m_103, pop_age_w_103, pop_age_m_104, " +
                         "pop_age_w_104, pop_age_m_105, pop_age_w_105, pop_age_m_106, pop_age_w_106, pop_age_m_107, " +
                         "pop_age_w_107, pop_age_m_108, pop_age_w_108, pop_age_m_109, pop_age_w_109, " +
                         "pop_age_total, pop_age_m_total, pop_age_w_total) " +
-                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
