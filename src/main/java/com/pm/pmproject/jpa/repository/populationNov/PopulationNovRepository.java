@@ -20,9 +20,9 @@ public class PopulationNovRepository {
 
     public void batchInsert(List<PopulationResultDto> list) {
         jdbcTemplate.batchUpdate(
-                "INSERT INTO population_nov (admin_code, standard_date, name_city, " +
+                "insert into population_nov (admin_code, standard_date, name_city, " +
                         "name_ward, name_town, pop_total, pop_m_total, pop_w_total) " +
-                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+                        "values (?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
