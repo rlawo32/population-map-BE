@@ -1,11 +1,9 @@
 package com.pm.pmproject.service;
 
-import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pm.pmproject.dto.*;
-import com.pm.pmproject.jpa.repository.test.TestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,7 +24,6 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,9 +46,8 @@ public class PopulationMainService {
     private final PopulationOctService populationOctService;
     private final PopulationNovService populationNovService;
     private final PopulationDecService populationDecService;
-    private final TestRepository testRepository;
 
-    @Scheduled(cron = "0 0/1 * * * *") // 10분마다
+    @Scheduled(cron = "0 0/10 * * * *") // 10분마다
     public void SchedulerMonthCheckWithSwagger() {
         try {
             // 1. URL 설정
@@ -100,26 +96,20 @@ public class PopulationMainService {
             String latestMonth = ldt.format(dtf);
             String operationId = "";
 
-            TestDto[] testDto = { new TestDto(1L, "test1"), new TestDto(2L, "test2") };
+            for(int n=0; n<node3.size(); n++) {
+                String summary = node3.get(n).get("summary").asText();
+                int p1 = summary.lastIndexOf("_");
+                String p2 = summary.substring(p1+1, p1+7);
 
-            List<TestDto> list = Arrays.asList(testDto);
+                if(latestMonth.equals(p2)) {
+                    operationId = node3.get(n).get("operationId").asText();
+                }
+            }
 
-            testRepository.batchInsert(list);
-
-//            for(int n=0; n<node3.size(); n++) {
-//                String summary = node3.get(n).get("summary").asText();
-//                int p1 = summary.lastIndexOf("_");
-//                String p2 = summary.substring(p1+1, p1+7);
-//
-//                if(latestMonth.equals(p2)) {
-//                    operationId = node3.get(n).get("operationId").asText();
-//                }
-//            }
-//
-//            if(operationId.length() > 0) {
-//                String nameMonth = ldt.getMonth().name().substring(0, 3);
-//                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
-//            }
+            if(operationId.length() > 0) {
+                String nameMonth = ldt.getMonth().name().substring(0, 3);
+                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
+            }
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
         } catch (IOException ex) {
@@ -134,13 +124,13 @@ public class PopulationMainService {
             String subUrl = apiUrl.substring(3);
             System.out.println("[" + updateMonth + "] " + updateName + " - 통신 시작 ");
 
-            for(int i=1; i<=1; i++) {
-                // 1. URL 설정 uddi:780a2373-bf11-4fb6-b3e4-ed4119571817
+            for(int i=1; i<=4; i++) {
+                // 1. URL 설정
                 StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/" + subUrl);
 
                 // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
-                urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
-                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));
+                urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode(String.valueOf(i), "UTF-8"));
+                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
                 urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=" + apiKey);
 
                 // 3. URL 객체 생성.
@@ -193,55 +183,55 @@ public class PopulationMainService {
 
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-//                List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
-//                List<Population0sDto> list0 = Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class));
-//                List<Population10sDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, Population10sDto[].class));
-//                List<Population20sDto> list2 = Arrays.asList(objectMapper.treeToValue(node2, Population20sDto[].class));
-//                List<Population30sDto> list3 = Arrays.asList(objectMapper.treeToValue(node2, Population30sDto[].class));
-//                List<Population40sDto> list4 = Arrays.asList(objectMapper.treeToValue(node2, Population40sDto[].class));
-//                List<Population50sDto> list5 = Arrays.asList(objectMapper.treeToValue(node2, Population50sDto[].class));
-//                List<Population60sDto> list6 = Arrays.asList(objectMapper.treeToValue(node2, Population60sDto[].class));
-//                List<Population70sDto> list7 = Arrays.asList(objectMapper.treeToValue(node2, Population70sDto[].class));
-//                List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
-//                List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
-//                List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
+                List<PopulationResultDto> list = Arrays.asList(objectMapper.treeToValue(node2, PopulationResultDto[].class));
+                List<Population0sDto> list0 = Arrays.asList(objectMapper.treeToValue(node2, Population0sDto[].class));
+                List<Population10sDto> list1 = Arrays.asList(objectMapper.treeToValue(node2, Population10sDto[].class));
+                List<Population20sDto> list2 = Arrays.asList(objectMapper.treeToValue(node2, Population20sDto[].class));
+                List<Population30sDto> list3 = Arrays.asList(objectMapper.treeToValue(node2, Population30sDto[].class));
+                List<Population40sDto> list4 = Arrays.asList(objectMapper.treeToValue(node2, Population40sDto[].class));
+                List<Population50sDto> list5 = Arrays.asList(objectMapper.treeToValue(node2, Population50sDto[].class));
+                List<Population60sDto> list6 = Arrays.asList(objectMapper.treeToValue(node2, Population60sDto[].class));
+                List<Population70sDto> list7 = Arrays.asList(objectMapper.treeToValue(node2, Population70sDto[].class));
+                List<Population80sDto> list8 = Arrays.asList(objectMapper.treeToValue(node2, Population80sDto[].class));
+                List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
+                List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
 
                 if(updateName.equals("JAN")) {
-//                populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list, list0,
+                            list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("FEB")) {
-//                populationFebService.populationFebUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationFebService.populationFebUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("MAR")) {
-//                populationMarService.populationMarUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationMarService.populationMarUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("APR")) {
-//                    populationAprService.populationAprUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationAprService.populationAprUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("MAY")) {
-//                    populationMayService.populationMayUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationMayService.populationMayUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("JUN")) {
-//                    populationJunService.populationJunUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationJunService.populationJunUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("JUL")) {
-//                    populationJulService.populationJulUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationJulService.populationJulUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("AUG")) {
-//                    populationAugService.populationAugUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationAugService.populationAugUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("SEP")) {
-//                    populationSepService.populationSepUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationSepService.populationSepUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("OCT")) {
-//                    populationOctService.populationOctUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationOctService.populationOctUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("NOV")) {
-//                    populationNovService.populationNovUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationNovService.populationNovUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 } else if(updateName.equals("DEC")) {
-//                    populationDecService.populationDecUpdate(CommonRequestDto.setApiResultList(list, list0,
-//                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationDecService.populationDecUpdate(CommonRequestDto.setApiResultList(list, list0,
+                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 }
             }
         } catch (UnsupportedEncodingException ex) {
