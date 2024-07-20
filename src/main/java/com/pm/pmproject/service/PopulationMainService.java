@@ -47,7 +47,7 @@ public class PopulationMainService {
     private final PopulationNovService populationNovService;
     private final PopulationDecService populationDecService;
 
-    @Scheduled(cron = "0 0/10 * * * *") // 10분마다
+    @Scheduled(cron = "0 0/30 * * * *") // 10분마다
     public void SchedulerMonthCheckWithSwagger() {
         try {
             // 1. URL 설정
