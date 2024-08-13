@@ -51,21 +51,25 @@ public class PopulationMayRepository {
     public void batchSelect() {
         Long result = 0L;
 
-        List<TestDto> list = jdbcTemplate.query("select * from test_table", new RowMapper<TestDto>() {
+        List<PopulationResultDto> list = jdbcTemplate.query("select pop_m_total, pop_w_total, pop_total, name_ward, name_city " +
+                        "from population_may", new RowMapper<PopulationResultDto>() {
             @Override
-            public TestDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                TestDto td = new TestDto();
-                td.setId(rs.getLong("id"));
-                td.setTestValue1(rs.getLong("test_value_1"));
-                td.setTestValue2(rs.getString("test_value_2"));
-                return td;
+            public PopulationResultDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                PopulationResultDto prd = new PopulationResultDto();
+                prd.setPopTotal(rs.getLong("pop_total"));
+                prd.setPopMTotal(rs.getLong("pop_m_total"));
+                prd.setPopWTotal(rs.getLong("pop_w_total"));
+                prd.setNameWard(rs.getString("name_ward"));
+                prd.setNameCity(rs.getString("name_city"));
+                return prd;
             }
         });
 
-        for(int i=0; i<list.size(); i++) {
-            System.out.print(list.get(i).getId() + "번째 테스트 : ");
-            System.out.print(list.get(i).getTestValue1() + " ");
-            System.out.println(list.get(i).getTestValue2());
+        System.out.print("List Size Check : " + list.size());
+        for(int i=0; i<20; i++) {
+            System.out.print(list.get(i).getNameCity() + " ");
+            System.out.print(list.get(i).getNameWard() + " ");
+            System.out.println(list.get(i).getPopTotal());
         }
 
 //        return result;
