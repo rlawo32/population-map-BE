@@ -24,6 +24,11 @@ public class PopulationMayService {
     private final PopulationMay100sRepository populationMay100sRepository;
 
     @Transactional
+    public void testSelect() {
+        populationMayRepository.batchSelect();
+    }
+
+    @Transactional
     public void populationMayUpdate(CommonRequestDto commonRequestDto) {
         try {
             populationMayRepository.batchInsert(commonRequestDto.getPopulationResultDto());

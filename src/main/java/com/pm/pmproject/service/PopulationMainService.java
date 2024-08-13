@@ -233,12 +233,19 @@ public class PopulationMainService {
                     populationDecService.populationDecUpdate(CommonRequestDto.setApiResultList(list, list0,
                         list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 }
+
+
             }
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
         } catch (IOException ex) {
             System.out.println("Error Code [2]");
         }
+    }
+
+    @Scheduled(cron = "0/30 * * * * *")
+    public void selectTest() {
+        populationMayService.testSelect();
     }
 }
 
