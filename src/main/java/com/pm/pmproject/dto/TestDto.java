@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TestDto {
 
+    private Long id;
     private Long testValue1;
     private String testValue2;
 }
