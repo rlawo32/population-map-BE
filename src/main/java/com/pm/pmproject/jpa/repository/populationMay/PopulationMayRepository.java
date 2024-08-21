@@ -12,7 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class PopulationMayRepository {
@@ -65,11 +67,20 @@ public class PopulationMayRepository {
             }
         });
 
-        System.out.print("List Size Check : " + list.size());
+        System.out.println("List Size Check : " + list.size());
         for(int i=0; i<20; i++) {
             System.out.print(list.get(i).getNameCity() + " ");
             System.out.print(list.get(i).getNameWard() + " ");
             System.out.println(list.get(i).getPopTotal());
+        }
+
+        Map<String, Long> map = new HashMap<>();
+        map.put("total", 0L);
+        map.put("total_m", 0L);
+        map.put("total_w", 0L);
+
+        for(int i=0; i< list.size(); i++) {
+
         }
 
 //        return result;
