@@ -68,15 +68,15 @@ public class PopulationMayRepository {
         });
 
         Map<String, Long> map = new HashMap<>();
-        map.put("total", 0L);
-        map.put("total_m", 0L);
-        map.put("total_w", 0L);
+//        map.put("total", 0L);
+//        map.put("total_m", 0L);
+//        map.put("total_w", 0L);
 
         Long total = 0L;
         Long total_m = 0L;
         Long total_w = 0L;
 
-        for(int i=0; i< list.size(); i++) {
+        for(int i=0; i<30; i++) {
             String nameCity = list.get(i).getNameCity();
             String nameWard = list.get(i).getNameWard();
             total += list.get(i).getPopTotal();
@@ -85,13 +85,50 @@ public class PopulationMayRepository {
 
             if(!map.containsKey(nameCity)) {
                 map.put(nameCity, list.get(i).getPopTotal());
+            } else {
+                map.put(nameCity, map.get(nameCity) + list.get(i).getPopTotal());
+            }
+
+            if(!map.containsKey(nameCity+"m")) {
+                map.put(nameCity+"m", list.get(i).getPopMTotal());
+            } else {
+                map.put(nameCity+"m", map.get(nameCity+"m") + list.get(i).getPopMTotal());
+            }
+
+            if(!map.containsKey(nameCity+"w")) {
+                map.put(nameCity+"w", list.get(i).getPopWTotal());
+            } else {
+                map.put(nameCity+"w", map.get(nameCity+"w") + list.get(i).getPopWTotal());
             }
 
             if(!map.containsKey(nameWard)) {
                 map.put(nameWard, list.get(i).getPopTotal());
+            } else {
+                map.put(nameWard, map.get(nameWard) + list.get(i).getPopTotal());
+            }
+
+            if(!map.containsKey(nameWard+"m")) {
+                map.put(nameWard+"m", list.get(i).getPopMTotal());
+            } else {
+                map.put(nameWard+"m", map.get(nameWard+"m") + list.get(i).getPopMTotal());
+            }
+
+            if(!map.containsKey(nameWard+"w")) {
+                map.put(nameWard+"w", list.get(i).getPopWTotal());
+            } else {
+                map.put(nameWard+"w", map.get(nameWard+"w") + list.get(i).getPopWTotal());
             }
         }
 
+//        for(int i=0; i<30; i++) {
+//            System.out.print(list.get(i).getNameCity() + " ");
+//            System.out.println(list.get(i).getNameWard());
+//        }
+
+        for( String key : map.keySet() ){
+            Long value = map.get(key);
+            System.out.println( String.format("키 : "+key+", 값 : "+value));
+        }
 //        return result;
     }
 }
