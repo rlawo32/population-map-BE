@@ -67,20 +67,29 @@ public class PopulationMayRepository {
             }
         });
 
-        System.out.println("List Size Check : " + list.size());
-        for(int i=0; i<20; i++) {
-            System.out.print(list.get(i).getNameCity() + " ");
-            System.out.print(list.get(i).getNameWard() + " ");
-            System.out.println(list.get(i).getPopTotal());
-        }
-
         Map<String, Long> map = new HashMap<>();
         map.put("total", 0L);
         map.put("total_m", 0L);
         map.put("total_w", 0L);
 
-        for(int i=0; i< list.size(); i++) {
+        Long total = 0L;
+        Long total_m = 0L;
+        Long total_w = 0L;
 
+        for(int i=0; i< list.size(); i++) {
+            String nameCity = list.get(i).getNameCity();
+            String nameWard = list.get(i).getNameWard();
+            total += list.get(i).getPopTotal();
+            total_m += list.get(i).getPopMTotal();
+            total_w += list.get(i).getPopWTotal();
+
+            if(!map.containsKey(nameCity)) {
+                map.put(nameCity, list.get(i).getPopTotal());
+            }
+
+            if(!map.containsKey(nameWard)) {
+                map.put(nameWard, list.get(i).getPopTotal());
+            }
         }
 
 //        return result;
