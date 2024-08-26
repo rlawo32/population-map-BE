@@ -84,10 +84,10 @@ public class PopulationMapBeApplication {
 		// 	System.out.println(list.get(i).getCost());
 		// }
 
-		for( String key : map.keySet() ){
-			Long value = map.get(key);
-			System.out.println( String.format("키 : "+key+", 값 : "+value));
-		}
+//		for( String key : map.keySet() ){
+//			Long value = map.get(key);
+//			System.out.println( String.format("키 : "+key+", 값 : "+value));
+//		}
 	}
 
 }

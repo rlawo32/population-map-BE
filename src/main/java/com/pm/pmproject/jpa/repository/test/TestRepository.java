@@ -26,8 +26,8 @@ public class TestRepository {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setLong(1, list.get(i).getTestValue1());
-                        ps.setString(2, list.get(i).getTestValue2());
+                        ps.setLong(1, list.get(i).getCost());
+                        ps.setString(2, list.get(i).getSubName());
                     }
 
                     @Override
