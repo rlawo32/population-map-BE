@@ -50,7 +50,7 @@ public class PopulationMayRepository {
                 });
     }
 
-    public void batchSelect() {
+    public void populationMapSelect() {
         Long result = 0L;
 
         List<PopulationResultDto> list = jdbcTemplate.query("select pop_m_total, pop_w_total, pop_total, name_ward, name_city " +
@@ -78,7 +78,7 @@ public class PopulationMayRepository {
 
         for(int i=0; i<30; i++) {
             String nameCity = list.get(i).getNameCity();
-            String nameWard = list.get(i).getNameWard();
+            String nameWard = nameCity+list.get(i).getNameWard();
             total += list.get(i).getPopTotal();
             total_m += list.get(i).getPopMTotal();
             total_w += list.get(i).getPopWTotal();
