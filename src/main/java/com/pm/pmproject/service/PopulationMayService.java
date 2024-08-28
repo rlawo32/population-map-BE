@@ -25,7 +25,7 @@ public class PopulationMayService {
 
     @Transactional
     public void testSelect() {
-        populationMayRepository.batchSelect();
+        populationMayRepository.populationMapSelect();
     }
 
     @Transactional
