@@ -50,8 +50,26 @@ public class PopulationMayRepository {
                 });
     }
 
+    public void populationMapInsert(List<String> list1, List<Long> list2) {
+        jdbcTemplate.batchUpdate(
+                "insert into population_may (id, name, count) " +
+                        "values(?, ?, ?)",
+                new BatchPreparedStatementSetter() {
+                    @Override
+                    public void setValues(PreparedStatement ps, int i) throws SQLException {
+                        ps.setLong(1, 1+i);
+                        ps.setString(2, list1.get(i));
+                        ps.setLong(3, list2.get(i));
+                    }
+
+                    @Override
+                    public int getBatchSize() {
+                        return list1.size();
+                    }
+                });
+    }
+
     public void populationMapSelect() {
-        Long result = 0L;
 
         List<PopulationResultDto> list = jdbcTemplate.query("select pop_m_total, pop_w_total, pop_total, name_ward, name_city " +
                         "from population_may", new RowMapper<PopulationResultDto>() {
@@ -129,6 +147,10 @@ public class PopulationMayRepository {
             Long value = map.get(key);
             System.out.println( String.format("키 : "+key+", 값 : "+value));
         }
-//        return result;
+
+		List<String> keyList = map.keySet().stream().collect(Collectors.toList());
+		List<Long> valueList = map.values().stream().collect(Collectors.toList());
+
+        populationMapInsert(keyList, valueList);
     }
 }
