@@ -1,8 +1,6 @@
 package com.pm.pmproject.jpa.repository.populationMay;
 
 import com.pm.pmproject.dto.PopulationResultDto;
-import com.pm.pmproject.dto.TestDto;
-import com.pm.pmproject.jpa.domain.populationMay.PopulationMay;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class PopulationMayRepository {
@@ -52,7 +50,7 @@ public class PopulationMayRepository {
 
     public void populationMapInsert(List<String> list1, List<Long> list2) {
         jdbcTemplate.batchUpdate(
-                "insert into population_may (id, name, count) " +
+                "insert into population_may_ (id, name, count) " +
                         "values(?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
@@ -86,9 +84,9 @@ public class PopulationMayRepository {
         });
 
         Map<String, Long> map = new HashMap<>();
-//        map.put("total", 0L);
-//        map.put("total_m", 0L);
-//        map.put("total_w", 0L);
+        map.put("total", 0L);
+        map.put("total_m", 0L);
+        map.put("total_w", 0L);
 
         Long total = 0L;
         Long total_m = 0L;
@@ -138,6 +136,9 @@ public class PopulationMayRepository {
             }
         }
 
+        map.put("total", total);
+        map.put("total_m", total_m);
+        map.put("total_w", total_w);
 //        for(int i=0; i<30; i++) {
 //            System.out.print(list.get(i).getNameCity() + " ");
 //            System.out.println(list.get(i).getNameWard());
