@@ -243,7 +243,7 @@ public class PopulationMainService {
         }
     }
 
-    @Scheduled(cron = "0/30 * * * * *")
+//    @Scheduled(cron = "0/30 * * * * *")
     public void selectTest() {
         populationMayService.testSelect();
     }
