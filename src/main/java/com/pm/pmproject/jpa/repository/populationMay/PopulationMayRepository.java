@@ -65,7 +65,7 @@ public class PopulationMayRepository {
         // });
 
         Map<String, List<Long>> map = new HashMap<>();
-        map.put("전체", Arrays.asList(0L, 0L, 0L));
+        // map.put("전체", Arrays.asList(0L, 0L, 0L));
 
         Long total = 0L;
         Long total_m = 0L;
@@ -129,7 +129,7 @@ public class PopulationMayRepository {
             }
         }
 
-        map.put("전체", Arrays.asList(total, total_m, total_w));
+        // map.put("전체", Arrays.asList(total, total_m, total_w));
 
 	List<String> keyList = map.keySet().stream().collect(Collectors.toList());
 	List<List<Long>> valueList = map.values().stream().collect(Collectors.toList());
