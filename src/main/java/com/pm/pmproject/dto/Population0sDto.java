@@ -12,7 +12,13 @@ public class Population0sDto {
 
     @JsonProperty("행정기관코드")
     private Long adminCode;
-  
+
+    @JsonProperty("시도명")
+    private String nameCity;
+
+    @JsonProperty("시군구명")
+    private String nameWard;
+
     @JsonProperty("0세남자")
     private Long popAgeM0;
 
