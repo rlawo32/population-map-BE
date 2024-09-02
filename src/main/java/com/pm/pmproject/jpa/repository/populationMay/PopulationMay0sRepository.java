@@ -88,7 +88,8 @@ public class PopulationMay0sRepository {
         // });
 
         Map<String, List<Long>> map = new HashMap<>();
-        //map.put("전체", Arrays.asList(0L, 0L, 0L));
+        map.put("전체", Arrays.asList(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+                0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L));
 
         Long total = 0L;
         Long total_m = 0L;
@@ -146,12 +147,12 @@ public class PopulationMay0sRepository {
                 ));
             }
 
-            if (nameWard.indexOf(" ") > -1) {                                // ex. 성남시 분당구
+            if (nameWard.indexOf(" ") > -1) {                               // ex. 성남시 분당구
                 int cut = nameWard.indexOf(" ");
-                String subNameWard1 = nameWard.substring(0, cut);    // ex. 성남시
-                String subNameWard2 = nameWard.substring(cut + 1);                // ex. 분당구
-                String subCityWard1 = nameCity + " " + subNameWard1;                // ex. 경기도 성남시
-                // String subCityWard2 = cityWard;    			                // ex. 경기도 성남시 분당구
+                String subNameWard1 = nameWard.substring(0, cut);           // ex. 성남시
+                String subNameWard2 = nameWard.substring(cut + 1); // ex. 분당구
+                String subCityWard1 = nameCity + " " + subNameWard1;        // ex. 경기도 성남시
+                // String subCityWard2 = cityWard;                          // ex. 경기도 성남시 분당구
 
                 if (!map.containsKey(subCityWard1)) {
                     map.put(subCityWard1, Arrays.asList(
@@ -226,7 +227,7 @@ public class PopulationMay0sRepository {
             }
         }
 
-        //map.put("전체", Arrays.asList(total, total_m, total_w));
+        map.put("전체", Arrays.asList(map.get("전체").get(0) + total, map.get("전체").get(1) + total_m, map.get("전체").get(2) + total_w));
 
         List<String> keyList = map.keySet().stream().collect(Collectors.toList());
         List<List<Long>> valueList = map.values().stream().collect(Collectors.toList());
