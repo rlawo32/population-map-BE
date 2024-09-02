@@ -94,8 +94,9 @@ public class PopulationMayRepository {
         Long total_w = 0L;
 
         for(int i=0; i<30; i++) {
-            String nameCity = list.get(i).getNameCity();
-            String nameWard = nameCity+list.get(i).getNameWard();
+            String nameCity = list.get(i).getNameCity();	  	// ex. 서울특별시
+            String nameWard = list.get(i).getNameWard(); 	  	// ex. 구로구
+            String cityWard = nameCity+" "+list.get(i).getNameWard(); 	// ex. 서울특별시 구로구
             total += list.get(i).getPopTotal();
             total_m += list.get(i).getPopMTotal();
             total_w += list.get(i).getPopWTotal();
@@ -118,62 +119,64 @@ public class PopulationMayRepository {
                 map.put(nameCity+"w", map.get(nameCity+"w") + list.get(i).getPopWTotal());
             }
 
-            if(nameWard.indexOf(" ") > -1) {
+            if(nameWard.indexOf(" ") > -1) {				// ex. 성남시 분당구
                 int cut = nameWard.indexOf(" ");
-                String subNameWard1 = nameWard.substring(0, cut);
-                String subNameWard2 = nameWard.substring(cut+1);
-                if(!map.containsKey(subNameWard1)) {
-                    map.put(subNameWard1, list.get(i).getPopTotal());
+                String subNameWard1 = nameWard.substring(0, cut);	// ex. 성남시
+                String subNameWard2 = nameWard.substring(cut+1);	// ex. 분당구
+		String subCityWard1 = nameCity+" "+subNameWard1;	// ex. 경기도 성남시
+		String subCityWard2 = cityWard;    			// ex. 경기도 성남시 분당구
+                if(!map.containsKey(subCityWard1)) {
+                    map.put(subCityWard1, list.get(i).getPopTotal());
                 } else {
-                    map.put(subNameWard1, map.get(subNameWard1) + list.get(i).getPopTotal());
+                    map.put(subCityWard1, map.get(subCityWard1) + list.get(i).getPopTotal());
                 }
 
-                if(!map.containsKey(subNameWard1+"m")) {
-                    map.put(subNameWard1+"m", list.get(i).getPopMTotal());
+                if(!map.containsKey(subCityWard1+"m")) {
+                    map.put(subCityWard1+"m", list.get(i).getPopMTotal());
                 } else {
-                    map.put(subNameWard1+"m", map.get(subNameWard1+"m") + list.get(i).getPopMTotal());
+                    map.put(subCityWard1+"m", map.get(subCityWard1+"m") + list.get(i).getPopMTotal());
                 }
 
-                if(!map.containsKey(subNameWard1+"w")) {
-                    map.put(subNameWard1+"w", list.get(i).getPopWTotal());
+                if(!map.containsKey(subCityWard1+"w")) {
+                    map.put(subCityWard1+"w", list.get(i).getPopWTotal());
                 } else {
-                    map.put(subNameWard1+"w", map.get(subNameWard1+"w") + list.get(i).getPopWTotal());
+                    map.put(subCityWard1+"w", map.get(subCityWard1+"w") + list.get(i).getPopWTotal());
                 }
 
-                if(!map.containsKey(subNameWard2)) {
-                    map.put(subNameWard2, list.get(i).getPopTotal());
+                if(!map.containsKey(subCityWard2)) {
+                    map.put(subCityWard2, list.get(i).getPopTotal());
                 } else {
-                    map.put(subNameWard2, map.get(subNameWard2) + list.get(i).getPopTotal());
+                    map.put(subCityWard2, map.get(subCityWard2) + list.get(i).getPopTotal());
                 }
 
-                if(!map.containsKey(subNameWard2+"m")) {
-                    map.put(subNameWard2+"m", list.get(i).getPopMTotal());
+                if(!map.containsKey(subCityWard2+"m")) {
+                    map.put(subCityWard2+"m", list.get(i).getPopMTotal());
                 } else {
-                    map.put(subNameWard2+"m", map.get(subNameWard2+"m") + list.get(i).getPopMTotal());
+                    map.put(subCityWard2+"m", map.get(subCityWard2+"m") + list.get(i).getPopMTotal());
                 }
 
-                if(!map.containsKey(subNameWard2+"w")) {
-                    map.put(subNameWard2+"w", list.get(i).getPopWTotal());
+                if(!map.containsKey(subCityWard2+"w")) {
+                    map.put(subCityWard2+"w", list.get(i).getPopWTotal());
                 } else {
-                    map.put(subNameWard2+"w", map.get(subNameWard2+"w") + list.get(i).getPopWTotal());
+                    map.put(subCityWard2+"w", map.get(subCityWard2+"w") + list.get(i).getPopWTotal());
                 }
             } else {
-                if(!map.containsKey(nameWard)) {
-                    map.put(nameWard, list.get(i).getPopTotal());
+                if(!map.containsKey(cityWard)) {
+                    map.put(cityWard, list.get(i).getPopTotal());
                 } else {
-                    map.put(nameWard, map.get(nameWard) + list.get(i).getPopTotal());
+                    map.put(cityWard, map.get(cityWard) + list.get(i).getPopTotal());
                 }
 
-                if(!map.containsKey(nameWard+"m")) {
-                    map.put(nameWard+"m", list.get(i).getPopMTotal());
+                if(!map.containsKey(cityWard+"m")) {
+                    map.put(cityWard+"m", list.get(i).getPopMTotal());
                 } else {
-                    map.put(nameWard+"m", map.get(nameWard+"m") + list.get(i).getPopMTotal());
+                    map.put(cityWard+"m", map.get(cityWard+"m") + list.get(i).getPopMTotal());
                 }
 
-                if(!map.containsKey(nameWard+"w")) {
-                    map.put(nameWard+"w", list.get(i).getPopWTotal());
+                if(!map.containsKey(cityWard+"w")) {
+                    map.put(cityWard+"w", list.get(i).getPopWTotal());
                 } else {
-                    map.put(nameWard+"w", map.get(nameWard+"w") + list.get(i).getPopWTotal());
+                    map.put(cityWard+"w", map.get(cityWard+"w") + list.get(i).getPopWTotal());
                 }
             }
         }
