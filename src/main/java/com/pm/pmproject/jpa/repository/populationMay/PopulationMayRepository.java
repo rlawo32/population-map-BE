@@ -48,43 +48,23 @@ public class PopulationMayRepository {
                 });
     }
 
-    // 지역별 인구 total insert
-    public void populationMapInsert(List<String> list1, List<Long> list2) {
-//        jdbcTemplate.batchUpdate(
-//                "insert into population_may_ (id, name, count) " +
-//                        "values(?, ?, ?)",
-//                new BatchPreparedStatementSetter() {
-//                    @Override
-//                    public void setValues(PreparedStatement ps, int i) throws SQLException {
-//                        ps.setLong(1, 1+i);
-//                        ps.setString(2, list1.get(i));
-//                        ps.setLong(3, list2.get(i));
-//                    }
-//
-//                    @Override
-//                    public int getBatchSize() {
-//                        return list1.size();
-//                    }
-//                });
-    }
+    public void populationMapSelect(List<PopulationResultDto> list) {
 
-    public void populationMapSelect() {
+        // List<PopulationResultDto> list = jdbcTemplate.query("select pop_m_total, pop_w_total, pop_total, name_ward, name_city " +
+        //                 "from population_may", new RowMapper<PopulationResultDto>() {
+        //     @Override
+        //     public PopulationResultDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+        //         PopulationResultDto prd = new PopulationResultDto();
+        //         prd.setPopTotal(rs.getLong("pop_total"));
+        //         prd.setPopMTotal(rs.getLong("pop_m_total"));
+        //         prd.setPopWTotal(rs.getLong("pop_w_total"));
+        //         prd.setNameWard(rs.getString("name_ward"));
+        //         prd.setNameCity(rs.getString("name_city"));
+        //         return prd;
+        //     }
+        // });
 
-        List<PopulationResultDto> list = jdbcTemplate.query("select pop_m_total, pop_w_total, pop_total, name_ward, name_city " +
-                        "from population_may", new RowMapper<PopulationResultDto>() {
-            @Override
-            public PopulationResultDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                PopulationResultDto prd = new PopulationResultDto();
-                prd.setPopTotal(rs.getLong("pop_total"));
-                prd.setPopMTotal(rs.getLong("pop_m_total"));
-                prd.setPopWTotal(rs.getLong("pop_w_total"));
-                prd.setNameWard(rs.getString("name_ward"));
-                prd.setNameCity(rs.getString("name_city"));
-                return prd;
-            }
-        });
-
-        Map<String, Long> map = new HashMap<>();
+        Map<String, List<Long>> map = new HashMap<>();
         map.put("total", 0L);
         map.put("total_m", 0L);
         map.put("total_w", 0L);
@@ -102,21 +82,13 @@ public class PopulationMayRepository {
             total_w += list.get(i).getPopWTotal();
 
             if(!map.containsKey(nameCity)) {
-                map.put(nameCity, list.get(i).getPopTotal());
+                map.put(nameCity, Arrays.asList(list.get(i).getPopTotal(), list.get(i).getPopMTotal(), list.get(i).getPopWTotal()));
             } else {
-                map.put(nameCity, map.get(nameCity) + list.get(i).getPopTotal());
-            }
-
-            if(!map.containsKey(nameCity+"m")) {
-                map.put(nameCity+"m", list.get(i).getPopMTotal());
-            } else {
-                map.put(nameCity+"m", map.get(nameCity+"m") + list.get(i).getPopMTotal());
-            }
-
-            if(!map.containsKey(nameCity+"w")) {
-                map.put(nameCity+"w", list.get(i).getPopWTotal());
-            } else {
-                map.put(nameCity+"w", map.get(nameCity+"w") + list.get(i).getPopWTotal());
+                map.put(nameCity, Arrays.asList(
+                    map.get(nameCity).get(0) + list.get(i).getPopTotal(),
+                    map.get(nameCity).get(1) + list.get(i).getPopMTotal(),
+                    map.get(nameCity).get(2) + list.get(i).getPopWTotal()
+                    ));
             }
 
             if(nameWard.indexOf(" ") > -1) {				// ex. 성남시 분당구
@@ -127,57 +99,34 @@ public class PopulationMayRepository {
 		String subCityWard2 = cityWard;    			// ex. 경기도 성남시 분당구
 		    
                 if(!map.containsKey(subCityWard1)) {
-                    map.put(subCityWard1, list.get(i).getPopTotal());
+                    map.put(subCityWard1, Arrays.asList(list.get(i).getPopTotal(), list.get(i).getPopMTotal(), list.get(i).getPopWTotal()));
                 } else {
-                    map.put(subCityWard1, map.get(subCityWard1) + list.get(i).getPopTotal());
-                }
-
-                if(!map.containsKey(subCityWard1+"m")) {
-                    map.put(subCityWard1+"m", list.get(i).getPopMTotal());
-                } else {
-                    map.put(subCityWard1+"m", map.get(subCityWard1+"m") + list.get(i).getPopMTotal());
-                }
-
-                if(!map.containsKey(subCityWard1+"w")) {
-                    map.put(subCityWard1+"w", list.get(i).getPopWTotal());
-                } else {
-                    map.put(subCityWard1+"w", map.get(subCityWard1+"w") + list.get(i).getPopWTotal());
+                    map.put(subCityWard1, Arrays.asList(
+                    	map.get(subCityWard1).get(0) + list.get(i).getPopTotal(),
+                    	map.get(subCityWard1).get(1) + list.get(i).getPopMTotal(),
+                    	map.get(subCityWard1).get(2) + list.get(i).getPopWTotal()
+                    	));
                 }
 
                 if(!map.containsKey(subCityWard2)) {
-                    map.put(subCityWard2, list.get(i).getPopTotal());
+                    map.put(subCityWard2, Arrays.asList(list.get(i).getPopTotal(), list.get(i).getPopMTotal(), list.get(i).getPopWTotal()));
                 } else {
-                    map.put(subCityWard2, map.get(subCityWard2) + list.get(i).getPopTotal());
+                    map.put(subCityWard2, Arrays.asList(
+                    	map.get(subCityWard2).get(0) + list.get(i).getPopTotal(),
+                    	map.get(subCityWard2).get(1) + list.get(i).getPopMTotal(),
+                    	map.get(subCityWard2).get(2) + list.get(i).getPopWTotal()
+                    	));
                 }
 
-                if(!map.containsKey(subCityWard2+"m")) {
-                    map.put(subCityWard2+"m", list.get(i).getPopMTotal());
-                } else {
-                    map.put(subCityWard2+"m", map.get(subCityWard2+"m") + list.get(i).getPopMTotal());
-                }
-
-                if(!map.containsKey(subCityWard2+"w")) {
-                    map.put(subCityWard2+"w", list.get(i).getPopWTotal());
-                } else {
-                    map.put(subCityWard2+"w", map.get(subCityWard2+"w") + list.get(i).getPopWTotal());
-                }
             } else {
                 if(!map.containsKey(cityWard)) {
-                    map.put(cityWard, list.get(i).getPopTotal());
+                    map.put(cityWard, Arrays.asList(list.get(i).getPopTotal(), list.get(i).getPopMTotal(), list.get(i).getPopWTotal()));
                 } else {
-                    map.put(cityWard, map.get(cityWard) + list.get(i).getPopTotal());
-                }
-
-                if(!map.containsKey(cityWard+"m")) {
-                    map.put(cityWard+"m", list.get(i).getPopMTotal());
-                } else {
-                    map.put(cityWard+"m", map.get(cityWard+"m") + list.get(i).getPopMTotal());
-                }
-
-                if(!map.containsKey(cityWard+"w")) {
-                    map.put(cityWard+"w", list.get(i).getPopWTotal());
-                } else {
-                    map.put(cityWard+"w", map.get(cityWard+"w") + list.get(i).getPopWTotal());
+                    map.put(cityWard, Arrays.asList(
+                    	map.get(cityWard).get(0) + list.get(i).getPopTotal(),
+                    	map.get(cityWard).get(1) + list.get(i).getPopMTotal(),
+                    	map.get(cityWard).get(2) + list.get(i).getPopWTotal()
+                    	));
                 }
             }
         }
@@ -185,19 +134,27 @@ public class PopulationMayRepository {
         map.put("total", total);
         map.put("total_m", total_m);
         map.put("total_w", total_w);
-//        for(int i=0; i<30; i++) {
-//            System.out.print(list.get(i).getNameCity() + " ");
-//            System.out.println(list.get(i).getNameWard());
-//        }
 
-        for( String key : map.keySet() ){
-            Long value = map.get(key);
-            System.out.println( String.format("키 : "+key+", 값 : "+value));
-        }
+	List<String> keyList = map.keySet().stream().collect(Collectors.toList());
+	List<List<Long>> valueList = map.values().stream().collect(Collectors.toList());
 
-		List<String> keyList = map.keySet().stream().collect(Collectors.toList());
-		List<Long> valueList = map.values().stream().collect(Collectors.toList());
-
-        populationMapInsert(keyList, valueList);
+	jdbcTemplate.batchUpdate(
+                    "insert into population_may_total (pop_seq, pop_place, pop_total, pop_total_m, pop_total_w) " +
+                            "values(?, ?, ?, ?, ?)",
+                    new BatchPreparedStatementSetter() {
+                        @Override
+                        public void setValues(PreparedStatement ps, int i) throws SQLException {
+                            ps.setLong(1, 1+i);
+                            ps.setString(2, keyList.get(i));
+                            ps.setLong(3, valueList.get(i).get(0));
+                            ps.setLong(4, valueList.get(i).get(1));
+                            ps.setLong(5, valueList.get(i).get(2));
+                        }
+    
+                        @Override
+                        public int getBatchSize() {
+                            return keyList.size();
+                        }
+                    });
     }
 }
