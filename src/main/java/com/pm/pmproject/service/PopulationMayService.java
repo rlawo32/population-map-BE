@@ -23,10 +23,10 @@ public class PopulationMayService {
     private final PopulationMay90sRepository populationMay90sRepository;
     private final PopulationMay100sRepository populationMay100sRepository;
 
-    @Transactional
-    public void testSelect() {
-        populationMayRepository.populationMapSelect();
-    }
+//    @Transactional
+//    public void testSelect() {
+//        populationMayRepository.populationMapSelect();
+//    }
 
     @Transactional
     public void populationMayUpdate(CommonRequestDto commonRequestDto) {
