@@ -96,7 +96,7 @@ public class PopulationMayRepository {
                 String subNameWard1 = nameWard.substring(0, cut);	// ex. 성남시
                 String subNameWard2 = nameWard.substring(cut+1);	// ex. 분당구
 		String subCityWard1 = nameCity+" "+subNameWard1;	// ex. 경기도 성남시
-		String subCityWard2 = cityWard;    			// ex. 경기도 성남시 분당구
+		// String subCityWard2 = cityWard;    			// ex. 경기도 성남시 분당구
 		    
                 if(!map.containsKey(subCityWard1)) {
                     map.put(subCityWard1, Arrays.asList(list.get(i).getPopTotal(), list.get(i).getPopMTotal(), list.get(i).getPopWTotal()));
@@ -108,15 +108,15 @@ public class PopulationMayRepository {
                     	));
                 }
 
-                if(!map.containsKey(subCityWard2)) {
-                    map.put(subCityWard2, Arrays.asList(list.get(i).getPopTotal(), list.get(i).getPopMTotal(), list.get(i).getPopWTotal()));
-                } else {
-                    map.put(subCityWard2, Arrays.asList(
-                    	map.get(subCityWard2).get(0) + list.get(i).getPopTotal(),
-                    	map.get(subCityWard2).get(1) + list.get(i).getPopMTotal(),
-                    	map.get(subCityWard2).get(2) + list.get(i).getPopWTotal()
-                    	));
-                }
+                // if(!map.containsKey(subCityWard2)) {
+                //     map.put(subCityWard2, Arrays.asList(list.get(i).getPopTotal(), list.get(i).getPopMTotal(), list.get(i).getPopWTotal()));
+                // } else {
+                //     map.put(subCityWard2, Arrays.asList(
+                //     	map.get(subCityWard2).get(0) + list.get(i).getPopTotal(),
+                //     	map.get(subCityWard2).get(1) + list.get(i).getPopMTotal(),
+                //     	map.get(subCityWard2).get(2) + list.get(i).getPopWTotal()
+                //     	));
+                // }
 
             } else {
                 if(!map.containsKey(cityWard)) {
