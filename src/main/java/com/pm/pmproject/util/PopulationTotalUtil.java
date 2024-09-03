@@ -10,15 +10,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM0() + list.get(i).getPopAgeM1() + list.get(i).getPopAgeM2() +
-                    list.get(i).getPopAgeM3() + list.get(i).getPopAgeM4() + list.get(i).getPopAgeM5() +
-                    list.get(i).getPopAgeM6() + list.get(i).getPopAgeM7() + list.get(i).getPopAgeM8() +
-                    list.get(i).getPopAgeM9();
+            result = list.get(i).getPopAge0M() + list.get(i).getPopAge1M() + list.get(i).getPopAge2M() +
+                    list.get(i).getPopAge3M() + list.get(i).getPopAge4M() + list.get(i).getPopAge5M() +
+                    list.get(i).getPopAge6M() + list.get(i).getPopAge7M() + list.get(i).getPopAge8M() +
+                    list.get(i).getPopAge9M();
         } else {
-            result = list.get(i).getPopAgeW0() + list.get(i).getPopAgeW1() + list.get(i).getPopAgeW2() +
-                    list.get(i).getPopAgeW3() + list.get(i).getPopAgeW4() + list.get(i).getPopAgeW5() +
-                    list.get(i).getPopAgeW6() + list.get(i).getPopAgeW7() + list.get(i).getPopAgeW8() +
-                    list.get(i).getPopAgeW9();
+            result = list.get(i).getPopAge0W() + list.get(i).getPopAge1W() + list.get(i).getPopAge2W() +
+                    list.get(i).getPopAge3W() + list.get(i).getPopAge4W() + list.get(i).getPopAge5W() +
+                    list.get(i).getPopAge6W() + list.get(i).getPopAge7W() + list.get(i).getPopAge8W() +
+                    list.get(i).getPopAge9W();
         }
 
         return result;
@@ -28,15 +28,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM10() + list.get(i).getPopAgeM11() + list.get(i).getPopAgeM12() +
-                    list.get(i).getPopAgeM13() + list.get(i).getPopAgeM14() + list.get(i).getPopAgeM15() +
-                    list.get(i).getPopAgeM16() + list.get(i).getPopAgeM17() + list.get(i).getPopAgeM18() +
-                    list.get(i).getPopAgeM19();
+            result = list.get(i).getPopAge10M() + list.get(i).getPopAge11M() + list.get(i).getPopAge12M() +
+                    list.get(i).getPopAge13M() + list.get(i).getPopAge14M() + list.get(i).getPopAge15M() +
+                    list.get(i).getPopAge16M() + list.get(i).getPopAge17M() + list.get(i).getPopAge18M() +
+                    list.get(i).getPopAge19M();
         } else {
-            result = list.get(i).getPopAgeW10() + list.get(i).getPopAgeW11() + list.get(i).getPopAgeW12() +
-                    list.get(i).getPopAgeW13() + list.get(i).getPopAgeW14() + list.get(i).getPopAgeW15() +
-                    list.get(i).getPopAgeW16() + list.get(i).getPopAgeW17() + list.get(i).getPopAgeW18() +
-                    list.get(i).getPopAgeW19();
+            result = list.get(i).getPopAge10W() + list.get(i).getPopAge11W() + list.get(i).getPopAge12W() +
+                    list.get(i).getPopAge13W() + list.get(i).getPopAge14W() + list.get(i).getPopAge15W() +
+                    list.get(i).getPopAge16W() + list.get(i).getPopAge17W() + list.get(i).getPopAge18W() +
+                    list.get(i).getPopAge19W();
         }
 
         return result;
@@ -46,15 +46,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM20() + list.get(i).getPopAgeM21() + list.get(i).getPopAgeM22() +
-                    list.get(i).getPopAgeM23() + list.get(i).getPopAgeM24() + list.get(i).getPopAgeM25() +
-                    list.get(i).getPopAgeM26() + list.get(i).getPopAgeM27() + list.get(i).getPopAgeM28() +
-                    list.get(i).getPopAgeM29();
+            result = list.get(i).getPopAge20M() + list.get(i).getPopAge21M() + list.get(i).getPopAge22M() +
+                    list.get(i).getPopAge23M() + list.get(i).getPopAge24M() + list.get(i).getPopAge25M() +
+                    list.get(i).getPopAge26M() + list.get(i).getPopAge27M() + list.get(i).getPopAge28M() +
+                    list.get(i).getPopAge29M();
         } else {
-            result = list.get(i).getPopAgeW20() + list.get(i).getPopAgeW21() + list.get(i).getPopAgeW22() +
-                    list.get(i).getPopAgeW23() + list.get(i).getPopAgeW24() + list.get(i).getPopAgeW25() +
-                    list.get(i).getPopAgeW26() + list.get(i).getPopAgeW27() + list.get(i).getPopAgeW28() +
-                    list.get(i).getPopAgeW29();
+            result = list.get(i).getPopAge20W() + list.get(i).getPopAge21W() + list.get(i).getPopAge22W() +
+                    list.get(i).getPopAge23W() + list.get(i).getPopAge24W() + list.get(i).getPopAge25W() +
+                    list.get(i).getPopAge26W() + list.get(i).getPopAge27W() + list.get(i).getPopAge28W() +
+                    list.get(i).getPopAge29W();
         }
 
         return result;
@@ -64,15 +64,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM30() + list.get(i).getPopAgeM31() + list.get(i).getPopAgeM32() +
-                    list.get(i).getPopAgeM33() + list.get(i).getPopAgeM34() + list.get(i).getPopAgeM35() +
-                    list.get(i).getPopAgeM36() + list.get(i).getPopAgeM37() + list.get(i).getPopAgeM38() +
-                    list.get(i).getPopAgeM39();
+            result = list.get(i).getPopAge30M() + list.get(i).getPopAge31M() + list.get(i).getPopAge32M() +
+                    list.get(i).getPopAge33M() + list.get(i).getPopAge34M() + list.get(i).getPopAge35M() +
+                    list.get(i).getPopAge36M() + list.get(i).getPopAge37M() + list.get(i).getPopAge38M() +
+                    list.get(i).getPopAge39M();
         } else {
-            result = list.get(i).getPopAgeW30() + list.get(i).getPopAgeW31() + list.get(i).getPopAgeW32() +
-                    list.get(i).getPopAgeW33() + list.get(i).getPopAgeW34() + list.get(i).getPopAgeW35() +
-                    list.get(i).getPopAgeW36() + list.get(i).getPopAgeW37() + list.get(i).getPopAgeW38() +
-                    list.get(i).getPopAgeW39();
+            result = list.get(i).getPopAge30W() + list.get(i).getPopAge31W() + list.get(i).getPopAge32W() +
+                    list.get(i).getPopAge33W() + list.get(i).getPopAge34W() + list.get(i).getPopAge35W() +
+                    list.get(i).getPopAge36W() + list.get(i).getPopAge37W() + list.get(i).getPopAge38W() +
+                    list.get(i).getPopAge39W();
         }
 
         return result;
@@ -82,15 +82,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM40() + list.get(i).getPopAgeM41() + list.get(i).getPopAgeM42() +
-                    list.get(i).getPopAgeM43() + list.get(i).getPopAgeM44() + list.get(i).getPopAgeM45() +
-                    list.get(i).getPopAgeM46() + list.get(i).getPopAgeM47() + list.get(i).getPopAgeM48() +
-                    list.get(i).getPopAgeM49();
+            result = list.get(i).getPopAge40M() + list.get(i).getPopAge41M() + list.get(i).getPopAge42M() +
+                    list.get(i).getPopAge43M() + list.get(i).getPopAge44M() + list.get(i).getPopAge45M() +
+                    list.get(i).getPopAge46M() + list.get(i).getPopAge47M() + list.get(i).getPopAge48M() +
+                    list.get(i).getPopAge49M();
         } else {
-            result = list.get(i).getPopAgeW40() + list.get(i).getPopAgeW41() + list.get(i).getPopAgeW42() +
-                    list.get(i).getPopAgeW43() + list.get(i).getPopAgeW44() + list.get(i).getPopAgeW45() +
-                    list.get(i).getPopAgeW46() + list.get(i).getPopAgeW47() + list.get(i).getPopAgeW48() +
-                    list.get(i).getPopAgeW49();
+            result = list.get(i).getPopAge40W() + list.get(i).getPopAge41W() + list.get(i).getPopAge42W() +
+                    list.get(i).getPopAge43W() + list.get(i).getPopAge44W() + list.get(i).getPopAge45W() +
+                    list.get(i).getPopAge46W() + list.get(i).getPopAge47W() + list.get(i).getPopAge48W() +
+                    list.get(i).getPopAge49W();
         }
 
         return result;
@@ -100,15 +100,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM50() + list.get(i).getPopAgeM51() + list.get(i).getPopAgeM52() +
-                    list.get(i).getPopAgeM53() + list.get(i).getPopAgeM54() + list.get(i).getPopAgeM55() +
-                    list.get(i).getPopAgeM56() + list.get(i).getPopAgeM57() + list.get(i).getPopAgeM58() +
-                    list.get(i).getPopAgeM59();
+            result = list.get(i).getPopAge50M() + list.get(i).getPopAge51M() + list.get(i).getPopAge52M() +
+                    list.get(i).getPopAge53M() + list.get(i).getPopAge54M() + list.get(i).getPopAge55M() +
+                    list.get(i).getPopAge56M() + list.get(i).getPopAge57M() + list.get(i).getPopAge58M() +
+                    list.get(i).getPopAge59M();
         } else {
-            result = list.get(i).getPopAgeW50() + list.get(i).getPopAgeW51() + list.get(i).getPopAgeW52() +
-                    list.get(i).getPopAgeW53() + list.get(i).getPopAgeW54() + list.get(i).getPopAgeW55() +
-                    list.get(i).getPopAgeW56() + list.get(i).getPopAgeW57() + list.get(i).getPopAgeW58() +
-                    list.get(i).getPopAgeW59();
+            result = list.get(i).getPopAge50W() + list.get(i).getPopAge51W() + list.get(i).getPopAge52W() +
+                    list.get(i).getPopAge53W() + list.get(i).getPopAge54W() + list.get(i).getPopAge55W() +
+                    list.get(i).getPopAge56W() + list.get(i).getPopAge57W() + list.get(i).getPopAge58W() +
+                    list.get(i).getPopAge59W();
         }
 
         return result;
@@ -118,15 +118,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM60() + list.get(i).getPopAgeM61() + list.get(i).getPopAgeM62() +
-                    list.get(i).getPopAgeM63() + list.get(i).getPopAgeM64() + list.get(i).getPopAgeM65() +
-                    list.get(i).getPopAgeM66() + list.get(i).getPopAgeM67() + list.get(i).getPopAgeM68() +
-                    list.get(i).getPopAgeM69();
+            result = list.get(i).getPopAge60M() + list.get(i).getPopAge61M() + list.get(i).getPopAge62M() +
+                    list.get(i).getPopAge63M() + list.get(i).getPopAge64M() + list.get(i).getPopAge65M() +
+                    list.get(i).getPopAge66M() + list.get(i).getPopAge67M() + list.get(i).getPopAge68M() +
+                    list.get(i).getPopAge69M();
         } else {
-            result = list.get(i).getPopAgeW60() + list.get(i).getPopAgeW61() + list.get(i).getPopAgeW62() +
-                    list.get(i).getPopAgeW63() + list.get(i).getPopAgeW64() + list.get(i).getPopAgeW65() +
-                    list.get(i).getPopAgeW66() + list.get(i).getPopAgeW67() + list.get(i).getPopAgeW68() +
-                    list.get(i).getPopAgeW69();
+            result = list.get(i).getPopAge60W() + list.get(i).getPopAge61W() + list.get(i).getPopAge62W() +
+                    list.get(i).getPopAge63W() + list.get(i).getPopAge64W() + list.get(i).getPopAge65W() +
+                    list.get(i).getPopAge66W() + list.get(i).getPopAge67W() + list.get(i).getPopAge68W() +
+                    list.get(i).getPopAge69W();
         }
 
         return result;
@@ -136,15 +136,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM70() + list.get(i).getPopAgeM71() + list.get(i).getPopAgeM72() +
-                    list.get(i).getPopAgeM73() + list.get(i).getPopAgeM74() + list.get(i).getPopAgeM75() +
-                    list.get(i).getPopAgeM76() + list.get(i).getPopAgeM77() + list.get(i).getPopAgeM78() +
-                    list.get(i).getPopAgeM79();
+            result = list.get(i).getPopAge70M() + list.get(i).getPopAge71M() + list.get(i).getPopAge72M() +
+                    list.get(i).getPopAge73M() + list.get(i).getPopAge74M() + list.get(i).getPopAge75M() +
+                    list.get(i).getPopAge76M() + list.get(i).getPopAge77M() + list.get(i).getPopAge78M() +
+                    list.get(i).getPopAge79M();
         } else {
-            result = list.get(i).getPopAgeW70() + list.get(i).getPopAgeW71() + list.get(i).getPopAgeW72() +
-                    list.get(i).getPopAgeW73() + list.get(i).getPopAgeW74() + list.get(i).getPopAgeW75() +
-                    list.get(i).getPopAgeW76() + list.get(i).getPopAgeW77() + list.get(i).getPopAgeW78() +
-                    list.get(i).getPopAgeW79();
+            result = list.get(i).getPopAge70W() + list.get(i).getPopAge71W() + list.get(i).getPopAge72W() +
+                    list.get(i).getPopAge73W() + list.get(i).getPopAge74W() + list.get(i).getPopAge75W() +
+                    list.get(i).getPopAge76W() + list.get(i).getPopAge77W() + list.get(i).getPopAge78W() +
+                    list.get(i).getPopAge79W();
         }
 
         return result;
@@ -154,15 +154,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM80() + list.get(i).getPopAgeM81() + list.get(i).getPopAgeM82() +
-                    list.get(i).getPopAgeM83() + list.get(i).getPopAgeM84() + list.get(i).getPopAgeM85() +
-                    list.get(i).getPopAgeM86() + list.get(i).getPopAgeM87() + list.get(i).getPopAgeM88() +
-                    list.get(i).getPopAgeM89();
+            result = list.get(i).getPopAge80M() + list.get(i).getPopAge81M() + list.get(i).getPopAge82M() +
+                    list.get(i).getPopAge83M() + list.get(i).getPopAge84M() + list.get(i).getPopAge85M() +
+                    list.get(i).getPopAge86M() + list.get(i).getPopAge87M() + list.get(i).getPopAge88M() +
+                    list.get(i).getPopAge89M();
         } else {
-            result = list.get(i).getPopAgeW80() + list.get(i).getPopAgeW81() + list.get(i).getPopAgeW82() +
-                    list.get(i).getPopAgeW83() + list.get(i).getPopAgeW84() + list.get(i).getPopAgeW85() +
-                    list.get(i).getPopAgeW86() + list.get(i).getPopAgeW87() + list.get(i).getPopAgeW88() +
-                    list.get(i).getPopAgeW89();
+            result = list.get(i).getPopAge80W() + list.get(i).getPopAge81W() + list.get(i).getPopAge82W() +
+                    list.get(i).getPopAge83W() + list.get(i).getPopAge84W() + list.get(i).getPopAge85W() +
+                    list.get(i).getPopAge86W() + list.get(i).getPopAge87W() + list.get(i).getPopAge88W() +
+                    list.get(i).getPopAge89W();
         }
 
         return result;
@@ -172,15 +172,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM90() + list.get(i).getPopAgeM91() + list.get(i).getPopAgeM92() +
-                    list.get(i).getPopAgeM93() + list.get(i).getPopAgeM94() + list.get(i).getPopAgeM95() +
-                    list.get(i).getPopAgeM96() + list.get(i).getPopAgeM97() + list.get(i).getPopAgeM98() +
-                    list.get(i).getPopAgeM99();
+            result = list.get(i).getPopAge90M() + list.get(i).getPopAge91M() + list.get(i).getPopAge92M() +
+                    list.get(i).getPopAge93M() + list.get(i).getPopAge94M() + list.get(i).getPopAge95M() +
+                    list.get(i).getPopAge96M() + list.get(i).getPopAge97M() + list.get(i).getPopAge98M() +
+                    list.get(i).getPopAge99M();
         } else {
-            result = list.get(i).getPopAgeW90() + list.get(i).getPopAgeW91() + list.get(i).getPopAgeW92() +
-                    list.get(i).getPopAgeW93() + list.get(i).getPopAgeW94() + list.get(i).getPopAgeW95() +
-                    list.get(i).getPopAgeW96() + list.get(i).getPopAgeW97() + list.get(i).getPopAgeW98() +
-                    list.get(i).getPopAgeW99();
+            result = list.get(i).getPopAge90W() + list.get(i).getPopAge91W() + list.get(i).getPopAge92W() +
+                    list.get(i).getPopAge93W() + list.get(i).getPopAge94W() + list.get(i).getPopAge95W() +
+                    list.get(i).getPopAge96W() + list.get(i).getPopAge97W() + list.get(i).getPopAge98W() +
+                    list.get(i).getPopAge99W();
         }
 
         return result;
@@ -190,15 +190,15 @@ public class PopulationTotalUtil {
         Long result;
 
         if(gender.equals("M")) {
-            result = list.get(i).getPopAgeM100() + list.get(i).getPopAgeM101() + list.get(i).getPopAgeM102() +
-                    list.get(i).getPopAgeM103() + list.get(i).getPopAgeM104() + list.get(i).getPopAgeM105() +
-                    list.get(i).getPopAgeM106() + list.get(i).getPopAgeM107() + list.get(i).getPopAgeM108() +
-                    list.get(i).getPopAgeM109();
+            result = list.get(i).getPopAge100M() + list.get(i).getPopAge101M() + list.get(i).getPopAge102M() +
+                    list.get(i).getPopAge103M() + list.get(i).getPopAge104M() + list.get(i).getPopAge105M() +
+                    list.get(i).getPopAge106M() + list.get(i).getPopAge107M() + list.get(i).getPopAge108M() +
+                    list.get(i).getPopAge109M();
         } else {
-            result = list.get(i).getPopAgeW100() + list.get(i).getPopAgeW101() + list.get(i).getPopAgeW102() +
-                    list.get(i).getPopAgeW103() + list.get(i).getPopAgeW104() + list.get(i).getPopAgeW105() +
-                    list.get(i).getPopAgeW106() + list.get(i).getPopAgeW107() + list.get(i).getPopAgeW108() +
-                    list.get(i).getPopAgeW109();
+            result = list.get(i).getPopAge100W() + list.get(i).getPopAge101W() + list.get(i).getPopAge102W() +
+                    list.get(i).getPopAge103W() + list.get(i).getPopAge104W() + list.get(i).getPopAge105W() +
+                    list.get(i).getPopAge106W() + list.get(i).getPopAge107W() + list.get(i).getPopAge108W() +
+                    list.get(i).getPopAge109W();
         }
 
         return result;
