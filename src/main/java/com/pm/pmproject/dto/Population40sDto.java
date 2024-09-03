@@ -12,64 +12,70 @@ public class Population40sDto {
 
     @JsonProperty("행정기관코드")
     private Long adminCode;
+   
+    @JsonProperty("시도명")
+    private String nameCity;
+
+    @JsonProperty("시군구명")
+    private String nameWard;
   
     @JsonProperty("40세남자")
-    private Long popAgeM40;
+    private Long popAge40M;
 
     @JsonProperty("40세여자")
-    private Long popAgeW40;
+    private Long popAge40W;
 
     @JsonProperty("41세남자")
-    private Long popAgeM41;
+    private Long popAge41M;
 
     @JsonProperty("41세여자")
-    private Long popAgeW41;
+    private Long popAge41W;
   
     @JsonProperty("42세남자")
-    private Long popAgeM42;
+    private Long popAge42M;
 
     @JsonProperty("42세여자")
-    private Long popAgeW42;
+    private Long popAge42W;
   
     @JsonProperty("43세남자")
-    private Long popAgeM43;
+    private Long popAge43M;
 
     @JsonProperty("43세여자")
-    private Long popAgeW43;
+    private Long popAge43W;
 
     @JsonProperty("44세남자")
-    private Long popAgeM44;
+    private Long popAge44M;
 
     @JsonProperty("44세여자")
-    private Long popAgeW44;
+    private Long popAge44W;
 
     @JsonProperty("45세남자")
-    private Long popAgeM45;
+    private Long popAge45M;
 
     @JsonProperty("45세여자")
-    private Long popAgeW45;
+    private Long popAge45W;
 
     @JsonProperty("46세남자")
-    private Long popAgeM46;
+    private Long popAge46M;
 
     @JsonProperty("46세여자")
-    private Long popAgeW46;
+    private Long popAge46W;
 
     @JsonProperty("47세남자")
-    private Long popAgeM47;
+    private Long popAge47M;
 
     @JsonProperty("47세여자")
-    private Long popAgeW47;
+    private Long popAge47W;
 
     @JsonProperty("48세남자")
-    private Long popAgeM48;
+    private Long popAge48M;
 
     @JsonProperty("48세여자")
-    private Long popAgeW48;
+    private Long popAge48W;
   
     @JsonProperty("49세남자")
-    private Long popAgeM49;
+    private Long popAge49M;
 
     @JsonProperty("49세여자")
-    private Long popAgeW49;
+    private Long popAge49W;
 }
