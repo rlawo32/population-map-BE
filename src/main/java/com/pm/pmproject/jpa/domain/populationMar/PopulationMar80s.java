@@ -17,72 +17,72 @@ public class PopulationMar80s {
     @Column(name = "admin_code")
     private Long adminCode;
 
-    @Column(name = "pop_age_total")
-    private Long popAgeTotal;
+    @Column(name = "age_total")
+    private Long ageTotal;
 
-    @Column(name = "pop_age_m_total")
-    private Long popAgeMTotal;
+    @Column(name = "age_total_m")
+    private Long ageTotalM;
 
-    @Column(name = "pop_age_w_total")
-    private Long popAgeWTotal;
+    @Column(name = "age_total_w")
+    private Long ageTotalW;
 
-    @Column(name = "pop_age_m_80")
-    private Long popAgeM80;
+    @Column(name = "age_80_m")
+    private Long age80M;
 
-    @Column(name = "pop_age_w_80")
-    private Long popAgeW80;
+    @Column(name = "age_80_w")
+    private Long age80W;
 
-    @Column(name = "pop_age_m_81")
-    private Long popAgeM81;
+    @Column(name = "age_81_m")
+    private Long age81M;
 
-    @Column(name = "pop_age_w_81")
-    private Long popAgeW81;
+    @Column(name = "age_81_w")
+    private Long age81W;
 
-    @Column(name = "pop_age_m_82")
-    private Long popAgeM82;
+    @Column(name = "age_82_m")
+    private Long age82M;
 
-    @Column(name = "pop_age_w_82")
-    private Long popAgeW82;
+    @Column(name = "age_82_w")
+    private Long age82W;
 
-    @Column(name = "pop_age_m_83")
-    private Long popAgeM83;
+    @Column(name = "age_83_m")
+    private Long age83M;
 
-    @Column(name = "pop_age_w_83")
-    private Long popAgeW83;
+    @Column(name = "age_83_w")
+    private Long age83W;
 
-    @Column(name = "pop_age_m_84")
-    private Long popAgeM84;
+    @Column(name = "age_84_m")
+    private Long age84M;
 
-    @Column(name = "pop_age_w_84")
-    private Long popAgeW84;
+    @Column(name = "age_84_w")
+    private Long age84W;
 
-    @Column(name = "pop_age_m_85")
-    private Long popAgeM85;
+    @Column(name = "age_85_m")
+    private Long age85M;
 
-    @Column(name = "pop_age_w_85")
-    private Long popAgeW85;
+    @Column(name = "age_85_w")
+    private Long age85W;
 
-    @Column(name = "pop_age_m_86")
-    private Long popAgeM86;
+    @Column(name = "age_86_m")
+    private Long age86M;
 
-    @Column(name = "pop_age_w_86")
-    private Long popAgeW86;
+    @Column(name = "age_86_w")
+    private Long age86W;
 
-    @Column(name = "pop_age_m_87")
-    private Long popAgeM87;
+    @Column(name = "age_87_m")
+    private Long age87M;
 
-    @Column(name = "pop_age_w_87")
-    private Long popAgeW87;
+    @Column(name = "age_87_w")
+    private Long age87W;
 
-    @Column(name = "pop_age_m_88")
-    private Long popAgeM88;
+    @Column(name = "age_88_m")
+    private Long age88M;
 
-    @Column(name = "pop_age_w_88")
-    private Long popAgeW88;
+    @Column(name = "age_88_w")
+    private Long age88W;
 
-    @Column(name = "pop_age_m_89")
-    private Long popAgeM89;
+    @Column(name = "age_89_m")
+    private Long age89M;
 
-    @Column(name = "pop_age_w_89")
-    private Long popAgeW89;
+    @Column(name = "age_89_w")
+    private Long age89W;
 }
