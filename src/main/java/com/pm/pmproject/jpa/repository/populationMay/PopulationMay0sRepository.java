@@ -71,7 +71,7 @@ public class PopulationMay0sRepository {
                 });
     }
 
-    public void populationMapSelect(List<Population0sDto> list) {
+    public void populationTotalInsert(List<Population0sDto> list) {
 
         // List<PopulationResultDto> list = jdbcTemplate.query("select pop_m_total, pop_w_total, pop_total, name_ward, name_city " +
         //                 "from population_may", new RowMapper<PopulationResultDto>() {
@@ -88,62 +88,58 @@ public class PopulationMay0sRepository {
         // });
 
         Map<String, List<Long>> map = new HashMap<>();
-        map.put("전체", Arrays.asList(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
-                0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L));
+        map.put("전체", Arrays.asList(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+                0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L));
 
-        Long total = 0L;
         Long total_m = 0L;
         Long total_w = 0L;
 
-        for (int i = 0; i < 30; i++) {
-            String nameCity = list.get(i).getNameCity();                // ex. 서울특별시
-            String nameWard = list.get(i).getNameWard();                // ex. 구로구
-            String cityWard = nameCity + " " + list.get(i).getNameWard();    // ex. 서울특별시 구로구
+        for (Population0sDto population0sDto : list) {
+            String nameCity = population0sDto.getNameCity();                    // ex. 서울특별시
+            String nameWard = population0sDto.getNameWard();                    // ex. 구로구
+            String cityWard = nameCity + " " + population0sDto.getNameWard();   // ex. 서울특별시 구로구
 
-            total_m += (list.get(i).getPopAge0M() + list.get(i).getPopAge1M() + list.get(i).getPopAge2M() + list.get(i).getPopAge3M() + list.get(i).getPopAge4M() + 
-                list.get(i).getPopAge5M() + list.get(i).getPopAge6M() + list.get(i).getPopAge7M() + list.get(i).getPopAge8M() + list.get(i).getPopAge9M());
-            total_w += (list.get(i).getPopAge0W() + list.get(i).getPopAge1W() + list.get(i).getPopAge2W() + list.get(i).getPopAge3W() + list.get(i).getPopAge4W() + 
-                list.get(i).getPopAge5W() + list.get(i).getPopAge6W() + list.get(i).getPopAge7W() + list.get(i).getPopAge8W() + list.get(i).getPopAge9W());
-            total += (total_m + total_w);
+            total_m += (population0sDto.getPopAge0M() + population0sDto.getPopAge1M() + population0sDto.getPopAge2M() + population0sDto.getPopAge3M() + population0sDto.getPopAge4M() +
+                    population0sDto.getPopAge5M() + population0sDto.getPopAge6M() + population0sDto.getPopAge7M() + population0sDto.getPopAge8M() + population0sDto.getPopAge9M());
+            total_w += (population0sDto.getPopAge0W() + population0sDto.getPopAge1W() + population0sDto.getPopAge2W() + population0sDto.getPopAge3W() + population0sDto.getPopAge4W() +
+                    population0sDto.getPopAge5W() + population0sDto.getPopAge6W() + population0sDto.getPopAge7W() + population0sDto.getPopAge8W() + population0sDto.getPopAge9W());
 
-            Long sumAge0 = list.get(i).getPopAge0M() + list.get(i).getPopAge0W();
-            Long sumAge1 = list.get(i).getPopAge1M() + list.get(i).getPopAge1W();
-            Long sumAge2 = list.get(i).getPopAge2M() + list.get(i).getPopAge2W();
-            Long sumAge3 = list.get(i).getPopAge3M() + list.get(i).getPopAge3W();
-            Long sumAge4 = list.get(i).getPopAge4M() + list.get(i).getPopAge4W();
-            Long sumAge5 = list.get(i).getPopAge5M() + list.get(i).getPopAge5W();
-            Long sumAge6 = list.get(i).getPopAge6M() + list.get(i).getPopAge6W();
-            Long sumAge7 = list.get(i).getPopAge7M() + list.get(i).getPopAge7W();
-            Long sumAge8 = list.get(i).getPopAge8M() + list.get(i).getPopAge8W();
-            Long sumAge9 = list.get(i).getPopAge9M() + list.get(i).getPopAge9W();
+            Long sumAge0 = population0sDto.getPopAge0M() + population0sDto.getPopAge0W();
+            Long sumAge1 = population0sDto.getPopAge1M() + population0sDto.getPopAge1W();
+            Long sumAge2 = population0sDto.getPopAge2M() + population0sDto.getPopAge2W();
+            Long sumAge3 = population0sDto.getPopAge3M() + population0sDto.getPopAge3W();
+            Long sumAge4 = population0sDto.getPopAge4M() + population0sDto.getPopAge4W();
+            Long sumAge5 = population0sDto.getPopAge5M() + population0sDto.getPopAge5W();
+            Long sumAge6 = population0sDto.getPopAge6M() + population0sDto.getPopAge6W();
+            Long sumAge7 = population0sDto.getPopAge7M() + population0sDto.getPopAge7W();
+            Long sumAge8 = population0sDto.getPopAge8M() + population0sDto.getPopAge8W();
+            Long sumAge9 = population0sDto.getPopAge9M() + population0sDto.getPopAge9W();
 
             if (!map.containsKey(nameCity)) {
                 map.put(nameCity, Arrays.asList(
-                        total, total_m, total_w,
-                        sumAge0, list.get(i).getPopAge0M(), list.get(i).getPopAge0W(),
-                        sumAge1, list.get(i).getPopAge1M(), list.get(i).getPopAge1W(),
-                        sumAge2, list.get(i).getPopAge2M(), list.get(i).getPopAge2W(),
-                        sumAge3, list.get(i).getPopAge3M(), list.get(i).getPopAge3W(),
-                        sumAge4, list.get(i).getPopAge4M(), list.get(i).getPopAge4W(),
-                        sumAge5, list.get(i).getPopAge5M(), list.get(i).getPopAge5W(),
-                        sumAge6, list.get(i).getPopAge6M(), list.get(i).getPopAge6W(),
-                        sumAge7, list.get(i).getPopAge7M(), list.get(i).getPopAge7W(),
-                        sumAge8, list.get(i).getPopAge8M(), list.get(i).getPopAge8W(),
-                        sumAge9, list.get(i).getPopAge9M(), list.get(i).getPopAge9W()
+                        sumAge0, population0sDto.getPopAge0M(), population0sDto.getPopAge0W(),
+                        sumAge1, population0sDto.getPopAge1M(), population0sDto.getPopAge1W(),
+                        sumAge2, population0sDto.getPopAge2M(), population0sDto.getPopAge2W(),
+                        sumAge3, population0sDto.getPopAge3M(), population0sDto.getPopAge3W(),
+                        sumAge4, population0sDto.getPopAge4M(), population0sDto.getPopAge4W(),
+                        sumAge5, population0sDto.getPopAge5M(), population0sDto.getPopAge5W(),
+                        sumAge6, population0sDto.getPopAge6M(), population0sDto.getPopAge6W(),
+                        sumAge7, population0sDto.getPopAge7M(), population0sDto.getPopAge7W(),
+                        sumAge8, population0sDto.getPopAge8M(), population0sDto.getPopAge8W(),
+                        sumAge9, population0sDto.getPopAge9M(), population0sDto.getPopAge9W()
                 ));
             } else {
                 map.put(nameCity, Arrays.asList(
-                        map.get(nameCity).get(0) + total, map.get(nameCity).get(1) + total_m, map.get(nameCity).get(2) + total_w,
-                        map.get(nameCity).get(3) + sumAge0, map.get(nameCity).get(4) + list.get(i).getPopAge0M(), map.get(nameCity).get(5) + list.get(i).getPopAge0W(),
-                        map.get(nameCity).get(6) + sumAge1, map.get(nameCity).get(7) + list.get(i).getPopAge1M(), map.get(nameCity).get(8) + list.get(i).getPopAge1W(),
-                        map.get(nameCity).get(9) + sumAge2, map.get(nameCity).get(10) + list.get(i).getPopAge2M(), map.get(nameCity).get(11) + list.get(i).getPopAge2W(),
-                        map.get(nameCity).get(12) + sumAge3, map.get(nameCity).get(13) + list.get(i).getPopAge3M(), map.get(nameCity).get(14) + list.get(i).getPopAge3W(),
-                        map.get(nameCity).get(15) + sumAge4, map.get(nameCity).get(16) + list.get(i).getPopAge4M(), map.get(nameCity).get(17) + list.get(i).getPopAge4W(),
-                        map.get(nameCity).get(18) + sumAge5, map.get(nameCity).get(19) + list.get(i).getPopAge5M(), map.get(nameCity).get(20) + list.get(i).getPopAge5W(),
-                        map.get(nameCity).get(21) + sumAge6, map.get(nameCity).get(22) + list.get(i).getPopAge6M(), map.get(nameCity).get(23) + list.get(i).getPopAge6W(),
-                        map.get(nameCity).get(24) + sumAge7, map.get(nameCity).get(25) + list.get(i).getPopAge7M(), map.get(nameCity).get(26) + list.get(i).getPopAge7W(),
-                        map.get(nameCity).get(27) + sumAge8, map.get(nameCity).get(28) + list.get(i).getPopAge8M(), map.get(nameCity).get(29) + list.get(i).getPopAge8W(),
-                        map.get(nameCity).get(30) + sumAge9, map.get(nameCity).get(31) + list.get(i).getPopAge9M(), map.get(nameCity).get(32) + list.get(i).getPopAge9W()
+                        map.get(nameCity).get(0) + sumAge0, map.get(nameCity).get(1) + population0sDto.getPopAge0M(), map.get(nameCity).get(2) + population0sDto.getPopAge0W(),
+                        map.get(nameCity).get(3) + sumAge1, map.get(nameCity).get(4) + population0sDto.getPopAge1M(), map.get(nameCity).get(5) + population0sDto.getPopAge1W(),
+                        map.get(nameCity).get(6) + sumAge2, map.get(nameCity).get(7) + population0sDto.getPopAge2M(), map.get(nameCity).get(8) + population0sDto.getPopAge2W(),
+                        map.get(nameCity).get(9) + sumAge3, map.get(nameCity).get(10) + population0sDto.getPopAge3M(), map.get(nameCity).get(11) + population0sDto.getPopAge3W(),
+                        map.get(nameCity).get(12) + sumAge4, map.get(nameCity).get(13) + population0sDto.getPopAge4M(), map.get(nameCity).get(14) + population0sDto.getPopAge4W(),
+                        map.get(nameCity).get(15) + sumAge5, map.get(nameCity).get(16) + population0sDto.getPopAge5M(), map.get(nameCity).get(17) + population0sDto.getPopAge5W(),
+                        map.get(nameCity).get(18) + sumAge6, map.get(nameCity).get(19) + population0sDto.getPopAge6M(), map.get(nameCity).get(20) + population0sDto.getPopAge6W(),
+                        map.get(nameCity).get(21) + sumAge7, map.get(nameCity).get(22) + population0sDto.getPopAge7M(), map.get(nameCity).get(23) + population0sDto.getPopAge7W(),
+                        map.get(nameCity).get(24) + sumAge8, map.get(nameCity).get(25) + population0sDto.getPopAge8M(), map.get(nameCity).get(26) + population0sDto.getPopAge8W(),
+                        map.get(nameCity).get(27) + sumAge9, map.get(nameCity).get(28) + population0sDto.getPopAge9M(), map.get(nameCity).get(29) + population0sDto.getPopAge9W()
                 ));
             }
 
@@ -156,31 +152,29 @@ public class PopulationMay0sRepository {
 
                 if (!map.containsKey(subCityWard1)) {
                     map.put(subCityWard1, Arrays.asList(
-                            total, total_m, total_w,
-                            sumAge0, list.get(i).getPopAge0M(), list.get(i).getPopAge0W(),
-                            sumAge1, list.get(i).getPopAge1M(), list.get(i).getPopAge1W(),
-                            sumAge2, list.get(i).getPopAge2M(), list.get(i).getPopAge2W(),
-                            sumAge3, list.get(i).getPopAge3M(), list.get(i).getPopAge3W(),
-                            sumAge4, list.get(i).getPopAge4M(), list.get(i).getPopAge4W(),
-                            sumAge5, list.get(i).getPopAge5M(), list.get(i).getPopAge5W(),
-                            sumAge6, list.get(i).getPopAge6M(), list.get(i).getPopAge6W(),
-                            sumAge7, list.get(i).getPopAge7M(), list.get(i).getPopAge7W(),
-                            sumAge8, list.get(i).getPopAge8M(), list.get(i).getPopAge8W(),
-                            sumAge9, list.get(i).getPopAge9M(), list.get(i).getPopAge9W()
+                            sumAge0, population0sDto.getPopAge0M(), population0sDto.getPopAge0W(),
+                            sumAge1, population0sDto.getPopAge1M(), population0sDto.getPopAge1W(),
+                            sumAge2, population0sDto.getPopAge2M(), population0sDto.getPopAge2W(),
+                            sumAge3, population0sDto.getPopAge3M(), population0sDto.getPopAge3W(),
+                            sumAge4, population0sDto.getPopAge4M(), population0sDto.getPopAge4W(),
+                            sumAge5, population0sDto.getPopAge5M(), population0sDto.getPopAge5W(),
+                            sumAge6, population0sDto.getPopAge6M(), population0sDto.getPopAge6W(),
+                            sumAge7, population0sDto.getPopAge7M(), population0sDto.getPopAge7W(),
+                            sumAge8, population0sDto.getPopAge8M(), population0sDto.getPopAge8W(),
+                            sumAge9, population0sDto.getPopAge9M(), population0sDto.getPopAge9W()
                     ));
                 } else {
                     map.put(subCityWard1, Arrays.asList(
-                            map.get(subCityWard1).get(0) + total, map.get(subCityWard1).get(1) + total_m, map.get(subCityWard1).get(2) + total_w,
-                            map.get(subCityWard1).get(3) + sumAge0, map.get(subCityWard1).get(4) + list.get(i).getPopAge0M(), map.get(subCityWard1).get(5) + list.get(i).getPopAge0W(),
-                            map.get(subCityWard1).get(6) + sumAge1, map.get(subCityWard1).get(7) + list.get(i).getPopAge1M(), map.get(subCityWard1).get(8) + list.get(i).getPopAge1W(),
-                            map.get(subCityWard1).get(9) + sumAge2, map.get(subCityWard1).get(10) + list.get(i).getPopAge2M(), map.get(subCityWard1).get(11) + list.get(i).getPopAge2W(),
-                            map.get(subCityWard1).get(12) + sumAge3, map.get(subCityWard1).get(13) + list.get(i).getPopAge3M(), map.get(subCityWard1).get(14) + list.get(i).getPopAge3W(),
-                            map.get(subCityWard1).get(15) + sumAge4, map.get(subCityWard1).get(16) + list.get(i).getPopAge4M(), map.get(subCityWard1).get(17) + list.get(i).getPopAge4W(),
-                            map.get(subCityWard1).get(18) + sumAge5, map.get(subCityWard1).get(19) + list.get(i).getPopAge5M(), map.get(subCityWard1).get(20) + list.get(i).getPopAge5W(),
-                            map.get(subCityWard1).get(21) + sumAge6, map.get(subCityWard1).get(22) + list.get(i).getPopAge6M(), map.get(subCityWard1).get(23) + list.get(i).getPopAge6W(),
-                            map.get(subCityWard1).get(24) + sumAge7, map.get(subCityWard1).get(25) + list.get(i).getPopAge7M(), map.get(subCityWard1).get(26) + list.get(i).getPopAge7W(),
-                            map.get(subCityWard1).get(27) + sumAge8, map.get(subCityWard1).get(28) + list.get(i).getPopAge8M(), map.get(subCityWard1).get(29) + list.get(i).getPopAge8W(),
-                            map.get(subCityWard1).get(30) + sumAge9, map.get(subCityWard1).get(31) + list.get(i).getPopAge9M(), map.get(subCityWard1).get(32) + list.get(i).getPopAge9W()
+                            map.get(subCityWard1).get(0) + sumAge0, map.get(subCityWard1).get(1) + population0sDto.getPopAge0M(), map.get(subCityWard1).get(2) + population0sDto.getPopAge0W(),
+                            map.get(subCityWard1).get(3) + sumAge1, map.get(subCityWard1).get(4) + population0sDto.getPopAge1M(), map.get(subCityWard1).get(5) + population0sDto.getPopAge1W(),
+                            map.get(subCityWard1).get(6) + sumAge2, map.get(subCityWard1).get(7) + population0sDto.getPopAge2M(), map.get(subCityWard1).get(8) + population0sDto.getPopAge2W(),
+                            map.get(subCityWard1).get(9) + sumAge3, map.get(subCityWard1).get(10) + population0sDto.getPopAge3M(), map.get(subCityWard1).get(11) + population0sDto.getPopAge3W(),
+                            map.get(subCityWard1).get(12) + sumAge4, map.get(subCityWard1).get(13) + population0sDto.getPopAge4M(), map.get(subCityWard1).get(14) + population0sDto.getPopAge4W(),
+                            map.get(subCityWard1).get(15) + sumAge5, map.get(subCityWard1).get(16) + population0sDto.getPopAge5M(), map.get(subCityWard1).get(17) + population0sDto.getPopAge5W(),
+                            map.get(subCityWard1).get(18) + sumAge6, map.get(subCityWard1).get(19) + population0sDto.getPopAge6M(), map.get(subCityWard1).get(20) + population0sDto.getPopAge6W(),
+                            map.get(subCityWard1).get(21) + sumAge7, map.get(subCityWard1).get(22) + population0sDto.getPopAge7M(), map.get(subCityWard1).get(23) + population0sDto.getPopAge7W(),
+                            map.get(subCityWard1).get(24) + sumAge8, map.get(subCityWard1).get(25) + population0sDto.getPopAge8M(), map.get(subCityWard1).get(26) + population0sDto.getPopAge8W(),
+                            map.get(subCityWard1).get(27) + sumAge9, map.get(subCityWard1).get(28) + population0sDto.getPopAge9M(), map.get(subCityWard1).get(29) + population0sDto.getPopAge9W()
                     ));
                 }
 
@@ -197,49 +191,48 @@ public class PopulationMay0sRepository {
             } else {
                 if (!map.containsKey(cityWard)) {
                     map.put(cityWard, Arrays.asList(
-                            total, total_m, total_w,
-                            sumAge0, list.get(i).getPopAge0M(), list.get(i).getPopAge0W(),
-                            sumAge1, list.get(i).getPopAge1M(), list.get(i).getPopAge1W(),
-                            sumAge2, list.get(i).getPopAge2M(), list.get(i).getPopAge2W(),
-                            sumAge3, list.get(i).getPopAge3M(), list.get(i).getPopAge3W(),
-                            sumAge4, list.get(i).getPopAge4M(), list.get(i).getPopAge4W(),
-                            sumAge5, list.get(i).getPopAge5M(), list.get(i).getPopAge5W(),
-                            sumAge6, list.get(i).getPopAge6M(), list.get(i).getPopAge6W(),
-                            sumAge7, list.get(i).getPopAge7M(), list.get(i).getPopAge7W(),
-                            sumAge8, list.get(i).getPopAge8M(), list.get(i).getPopAge8W(),
-                            sumAge9, list.get(i).getPopAge9M(), list.get(i).getPopAge9W()
+                            sumAge0, population0sDto.getPopAge0M(), population0sDto.getPopAge0W(),
+                            sumAge1, population0sDto.getPopAge1M(), population0sDto.getPopAge1W(),
+                            sumAge2, population0sDto.getPopAge2M(), population0sDto.getPopAge2W(),
+                            sumAge3, population0sDto.getPopAge3M(), population0sDto.getPopAge3W(),
+                            sumAge4, population0sDto.getPopAge4M(), population0sDto.getPopAge4W(),
+                            sumAge5, population0sDto.getPopAge5M(), population0sDto.getPopAge5W(),
+                            sumAge6, population0sDto.getPopAge6M(), population0sDto.getPopAge6W(),
+                            sumAge7, population0sDto.getPopAge7M(), population0sDto.getPopAge7W(),
+                            sumAge8, population0sDto.getPopAge8M(), population0sDto.getPopAge8W(),
+                            sumAge9, population0sDto.getPopAge9M(), population0sDto.getPopAge9W()
                     ));
                 } else {
                     map.put(cityWard, Arrays.asList(
-                            map.get(cityWard).get(0) + total, map.get(cityWard).get(1) + total_m, map.get(cityWard).get(2) + total_w,
-                            map.get(cityWard).get(3) + sumAge0, map.get(cityWard).get(4) + list.get(i).getPopAge0M(), map.get(cityWard).get(5) + list.get(i).getPopAge0W(),
-                            map.get(cityWard).get(6) + sumAge1, map.get(cityWard).get(7) + list.get(i).getPopAge1M(), map.get(cityWard).get(8) + list.get(i).getPopAge1W(),
-                            map.get(cityWard).get(9) + sumAge2, map.get(cityWard).get(10) + list.get(i).getPopAge2M(), map.get(cityWard).get(11) + list.get(i).getPopAge2W(),
-                            map.get(cityWard).get(12) + sumAge3, map.get(cityWard).get(13) + list.get(i).getPopAge3M(), map.get(cityWard).get(14) + list.get(i).getPopAge3W(),
-                            map.get(cityWard).get(15) + sumAge4, map.get(cityWard).get(16) + list.get(i).getPopAge4M(), map.get(cityWard).get(17) + list.get(i).getPopAge4W(),
-                            map.get(cityWard).get(18) + sumAge5, map.get(cityWard).get(19) + list.get(i).getPopAge5M(), map.get(cityWard).get(20) + list.get(i).getPopAge5W(),
-                            map.get(cityWard).get(21) + sumAge6, map.get(cityWard).get(22) + list.get(i).getPopAge6M(), map.get(cityWard).get(23) + list.get(i).getPopAge6W(),
-                            map.get(cityWard).get(24) + sumAge7, map.get(cityWard).get(25) + list.get(i).getPopAge7M(), map.get(cityWard).get(26) + list.get(i).getPopAge7W(),
-                            map.get(cityWard).get(27) + sumAge8, map.get(cityWard).get(28) + list.get(i).getPopAge8M(), map.get(cityWard).get(29) + list.get(i).getPopAge8W(),
-                            map.get(cityWard).get(30) + sumAge9, map.get(cityWard).get(31) + list.get(i).getPopAge9M(), map.get(cityWard).get(32) + list.get(i).getPopAge9W()
+                            map.get(cityWard).get(0) + sumAge0, map.get(cityWard).get(1) + population0sDto.getPopAge0M(), map.get(cityWard).get(2) + population0sDto.getPopAge0W(),
+                            map.get(cityWard).get(3) + sumAge1, map.get(cityWard).get(4) + population0sDto.getPopAge1M(), map.get(cityWard).get(5) + population0sDto.getPopAge1W(),
+                            map.get(cityWard).get(6) + sumAge2, map.get(cityWard).get(7) + population0sDto.getPopAge2M(), map.get(cityWard).get(8) + population0sDto.getPopAge2W(),
+                            map.get(cityWard).get(9) + sumAge3, map.get(cityWard).get(10) + population0sDto.getPopAge3M(), map.get(cityWard).get(11) + population0sDto.getPopAge3W(),
+                            map.get(cityWard).get(12) + sumAge4, map.get(cityWard).get(13) + population0sDto.getPopAge4M(), map.get(cityWard).get(14) + population0sDto.getPopAge4W(),
+                            map.get(cityWard).get(15) + sumAge5, map.get(cityWard).get(16) + population0sDto.getPopAge5M(), map.get(cityWard).get(17) + population0sDto.getPopAge5W(),
+                            map.get(cityWard).get(18) + sumAge6, map.get(cityWard).get(19) + population0sDto.getPopAge6M(), map.get(cityWard).get(20) + population0sDto.getPopAge6W(),
+                            map.get(cityWard).get(21) + sumAge7, map.get(cityWard).get(22) + population0sDto.getPopAge7M(), map.get(cityWard).get(23) + population0sDto.getPopAge7W(),
+                            map.get(cityWard).get(24) + sumAge8, map.get(cityWard).get(25) + population0sDto.getPopAge8M(), map.get(cityWard).get(26) + population0sDto.getPopAge8W(),
+                            map.get(cityWard).get(27) + sumAge9, map.get(cityWard).get(28) + population0sDto.getPopAge9M(), map.get(cityWard).get(29) + population0sDto.getPopAge9W()
                     ));
                 }
             }
         }
 
-        map.put("전체", Arrays.asList(map.get("전체").get(0) + total, map.get("전체").get(1) + total_m, map.get("전체").get(2) + total_w));
+        map.put("전체", Arrays.asList(map.get("전체").get(0) + (total_m + total_w), map.get("전체").get(1) + total_m, map.get("전체").get(2) + total_w,
+                0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L));
 
         List<String> keyList = map.keySet().stream().collect(Collectors.toList());
         List<List<Long>> valueList = map.values().stream().collect(Collectors.toList());
 
         jdbcTemplate.batchUpdate(
-                "insert into population_may_0s_total (pop_seq, pop_place, age_0s_total, age_0s_total_m, age_0s_total_w, " +
+                "insert into population_may_total_0s (pop_seq, pop_place, " +
                         "age_0_total, age_0_total_m, age_0_total_w, age_1_total, age_1_total_m, age_1_total_w, " +
                         "age_2_total, age_2_total_m, age_2_total_w, age_3_total, age_3_total_m, age_3_total_w, " +
                         "age_4_total, age_4_total_m, age_4_total_w, age_5_total, age_5_total_m, age_5_total_w, " +
                         "age_6_total, age_6_total_m, age_6_total_w, age_7_total, age_7_total_m, age_7_total_w, " +
                         "age_8_total, age_8_total_m, age_8_total_w, age_9_total, age_9_total_m, age_9_total_w) " +
-                        "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?)",
+                        "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -275,9 +268,6 @@ public class PopulationMay0sRepository {
                         ps.setLong(30, valueList.get(i).get(27));
                         ps.setLong(31, valueList.get(i).get(28));
                         ps.setLong(32, valueList.get(i).get(29));
-                        ps.setLong(33, valueList.get(i).get(30));
-                        ps.setLong(34, valueList.get(i).get(31));
-                        ps.setLong(35, valueList.get(i).get(32));
                     }
 
                     @Override
