@@ -47,14 +47,14 @@ public class PopulationMainService {
     private final PopulationNovService populationNovService;
     private final PopulationDecService populationDecService;
 
-    @Scheduled(cron = "0 0/30 * * * *") // 10분마다
+    @Scheduled(cron = "0 0/2 * * * *") // 10분마다
     public void SchedulerMonthCheckWithSwagger() {
         try {
             // 1. URL 설정
             StringBuilder urlBuilder = new StringBuilder("https://infuser.odcloud.kr/oas/docs?namespace=15097972/v1");
 
             // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
-            urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=" + apiKey);
+            urlBuilder.append("&" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + apiKey);
 
             // 3. URI 생성
             URI uri = URI.create(urlBuilder.toString());
@@ -77,7 +77,7 @@ public class PopulationMainService {
 
             // 7. 통신 응답 코드 확인.
             System.out.print("Swagger 통신 결과 : ");
-            if(res.statusCode() == 200) {
+            if (res.statusCode() == 200) {
                 System.out.println("성공");
             } else {
                 System.out.println("실패");
@@ -96,19 +96,21 @@ public class PopulationMainService {
             String latestMonth = ldt.format(dtf);
             String operationId = "";
 
-            for(int n=0; n<node3.size(); n++) {
+            for (int n = 0; n < node3.size(); n++) {
                 String summary = node3.get(n).get("summary").asText();
                 int p1 = summary.lastIndexOf("_");
-                String p2 = summary.substring(p1+1, p1+7);
+                String p2 = summary.substring(p1 + 1, p1 + 7);
 
-                if(latestMonth.equals(p2)) {
+                if (latestMonth.equals(p2)) {
                     operationId = node3.get(n).get("operationId").asText();
                 }
             }
 
-            if(operationId.length() > 0) {
+            if (operationId.length() > 0) {
                 String nameMonth = ldt.getMonth().name().substring(0, 3);
-                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
+//                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);uddi:3106da79-9e89-4af2-85f4-a132a46491ac
+                System.out.println("[" + "SubURL 확인 1" + "] " + operationId);
+                SchedulerPopulationUpdate("uddi:3106da79-9e89-4af2-85f4-a132a46491ac", latestMonth, "MAY"); // 5월 swagger
             }
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
@@ -121,22 +123,26 @@ public class PopulationMainService {
 
     private void SchedulerPopulationUpdate(String apiUrl, String updateMonth, String updateName) {
         try {
-            String subUrl = apiUrl.substring(3);
+//            String subUrl = apiUrl.substring(3);
+            String subUrl = apiUrl;
+            System.out.println("[" + "SubURL 확인 2" + "] " + subUrl);
             System.out.println("[" + updateMonth + "] " + updateName + " - 통신 시작 ");
+            StopWatch stopWatch1 = new StopWatch();
+            stopWatch1.start();
 
-            for(int i=1; i<=4; i++) {
+            for (int i = 1; i <= 4; i++) {
                 // 1. URL 설정
                 StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15097972/v1/" + subUrl);
 
                 // 2. 오픈 API의요청 규격에 맞는 파라미터 생성, 발급받은 인증키.
-                urlBuilder.append("?" + URLEncoder.encode("page","UTF-8") + "=" + URLEncoder.encode(String.valueOf(i), "UTF-8"));
-                urlBuilder.append("&" + URLEncoder.encode("perPage","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
-                urlBuilder.append("&" + URLEncoder.encode("serviceKey","UTF-8") + "=" + apiKey);
+                urlBuilder.append("?" + URLEncoder.encode("page", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(i), "UTF-8"));
+                urlBuilder.append("&" + URLEncoder.encode("perPage", "UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8"));
+                urlBuilder.append("&" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + apiKey);
 
                 // 3. URL 객체 생성.
                 URL url = new URL(urlBuilder.toString());
-                StopWatch stopWatch = new StopWatch();
-                stopWatch.start();
+                StopWatch stopWatch2 = new StopWatch();
+                stopWatch2.start();
 
                 // 4. 요청하고자 하는 URL과 통신하기 위한 Connection 객체 생성.
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -150,7 +156,7 @@ public class PopulationMainService {
 
                 // 7. 통신 응답 코드 확인.
                 System.out.print(i + "번째 통신 결과 : ");
-                if(conn.getResponseCode() == 200) {
+                if (conn.getResponseCode() == 200) {
                     System.out.println("성공");
                 } else {
                     System.out.println("실패");
@@ -158,7 +164,7 @@ public class PopulationMainService {
 
                 // 8. 전달받은 데이터를 BufferedReader 객체로 저장.
                 BufferedReader br;
-                if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
                     br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 } else {
                     br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
@@ -174,8 +180,8 @@ public class PopulationMainService {
                 // 10. 객체 해제.
                 br.close();
                 conn.disconnect();
-                stopWatch.stop();
-                System.out.println("통신 시간 : " + stopWatch.getTotalTimeSeconds());
+                stopWatch2.stop();
+                System.out.println("통신 시간 : " + stopWatch2.getTotalTimeSeconds());
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode node1 = objectMapper.readTree(sb.toString());
@@ -196,46 +202,52 @@ public class PopulationMainService {
                 List<Population90sDto> list9 = Arrays.asList(objectMapper.treeToValue(node2, Population90sDto[].class));
                 List<Population100sDto> list10 = Arrays.asList(objectMapper.treeToValue(node2, Population100sDto[].class));
 
-                if(updateName.equals("JAN")) {
-                    populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list, list0,
-                            list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("FEB")) {
-                    populationFebService.populationFebUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("MAR")) {
-                    populationMarService.populationMarUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("APR")) {
-                    populationAprService.populationAprUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("MAY")) {
-                    populationMayService.populationMayUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("JUN")) {
-                    populationJunService.populationJunUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("JUL")) {
-                    populationJulService.populationJulUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("AUG")) {
-                    populationAugService.populationAugUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("SEP")) {
-                    populationSepService.populationSepUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("OCT")) {
-                    populationOctService.populationOctUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("NOV")) {
-                    populationNovService.populationNovUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                } else if(updateName.equals("DEC")) {
-                    populationDecService.populationDecUpdate(CommonRequestDto.setApiResultList(list, list0,
-                        list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                if (updateName.equals("JAN")) {
+                    populationJanService.populationJanUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("FEB")) {
+                    populationFebService.populationFebUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("MAR")) {
+                    populationMarService.populationMarUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("APR")) {
+                    populationAprService.populationAprUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("MAY")) {
+//                    populationMayService.populationMayUpdate(CommonRequestDto.setApiResultList(list,
+//                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                    populationMayService.testSelect(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("JUN")) {
+                    populationJunService.populationJunUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("JUL")) {
+                    populationJulService.populationJulUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("AUG")) {
+                    populationAugService.populationAugUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("SEP")) {
+                    populationSepService.populationSepUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("OCT")) {
+                    populationOctService.populationOctUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("NOV")) {
+                    populationNovService.populationNovUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
+                } else if (updateName.equals("DEC")) {
+                    populationDecService.populationDecUpdate(CommonRequestDto.setApiResultList(list,
+                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
                 }
 
 
             }
+
+            stopWatch1.stop();
+            System.out.println("총 통신 시간 : " + stopWatch1.getTotalTimeSeconds());
+
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
         } catch (IOException ex) {

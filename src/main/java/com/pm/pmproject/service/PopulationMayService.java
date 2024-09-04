@@ -23,10 +23,15 @@ public class PopulationMayService {
     private final PopulationMay90sRepository populationMay90sRepository;
     private final PopulationMay100sRepository populationMay100sRepository;
 
-//    @Transactional
-//    public void testSelect() {
-//        populationMayRepository.populationMapSelect();
-//    }
+    @Transactional
+    public void testSelect(CommonRequestDto commonRequestDto) {
+        try {
+            populationMayRepository.populationTotalInsert(commonRequestDto.getPopulationResultDto());
+            populationMay0sRepository.populationTotalInsert(commonRequestDto.getPopulation0sDto());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Transactional
     public void populationMayUpdate(CommonRequestDto commonRequestDto) {
@@ -54,7 +59,7 @@ public class PopulationMayService {
             populationMay90sRepository.batchInsert(commonRequestDto.getPopulation90sDto());
 
             populationMay100sRepository.batchInsert(commonRequestDto.getPopulation100sDto());
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
