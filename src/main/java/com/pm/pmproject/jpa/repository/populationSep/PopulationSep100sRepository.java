@@ -21,11 +21,11 @@ public class PopulationSep100sRepository {
 
     public void batchInsert(List<Population100sDto> list) {
         jdbcTemplate.batchUpdate(
-                "insert into population_sep_100s (admin_code, pop_age_m_100, pop_age_w_100, pop_age_m_101, " +
-                        "pop_age_w_101, pop_age_m_102, pop_age_w_102, pop_age_m_103, pop_age_w_103, pop_age_m_104, " +
-                        "pop_age_w_104, pop_age_m_105, pop_age_w_105, pop_age_m_106, pop_age_w_106, pop_age_m_107, " +
-                        "pop_age_w_107, pop_age_m_108, pop_age_w_108, pop_age_m_109, pop_age_w_109, " +
-                        "pop_age_total, pop_age_m_total, pop_age_w_total) " +
+                "insert into population_sep_100s (admin_code, age_100_m, age_100_w, " +
+                        "age_101_m, age_101_w, age_102_m, age_102_w, age_103_m, age_103_w, " +
+                        "age_104_m, age_104_w, age_105_m, age_105_w, age_106_m, age_106_w, " +
+                        "age_107_m, age_107_w, age_108_m, age_108_w, age_109_m, age_109_w, " +
+                        "age_total, age_total_m, age_total_w) " +
                         "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
                     @Override
@@ -33,26 +33,26 @@ public class PopulationSep100sRepository {
                         Long mTotal = PopulationTotalUtil.populationTotal100s("M", list, i);
                         Long wTotal = PopulationTotalUtil.populationTotal100s("W", list, i);
                         ps.setLong(1, list.get(i).getAdminCode());
-                        ps.setLong(2, list.get(i).getPopAgeM100());
-                        ps.setLong(3, list.get(i).getPopAgeW100());
-                        ps.setLong(4, list.get(i).getPopAgeM101());
-                        ps.setLong(5, list.get(i).getPopAgeW101());
-                        ps.setLong(6, list.get(i).getPopAgeM102());
-                        ps.setLong(7, list.get(i).getPopAgeW102());
-                        ps.setLong(8, list.get(i).getPopAgeM103());
-                        ps.setLong(9, list.get(i).getPopAgeW103());
-                        ps.setLong(10, list.get(i).getPopAgeM104());
-                        ps.setLong(11, list.get(i).getPopAgeW104());
-                        ps.setLong(12, list.get(i).getPopAgeM105());
-                        ps.setLong(13, list.get(i).getPopAgeW105());
-                        ps.setLong(14, list.get(i).getPopAgeM106());
-                        ps.setLong(15, list.get(i).getPopAgeW106());
-                        ps.setLong(16, list.get(i).getPopAgeM107());
-                        ps.setLong(17, list.get(i).getPopAgeW107());
-                        ps.setLong(18, list.get(i).getPopAgeM108());
-                        ps.setLong(19, list.get(i).getPopAgeW108());
-                        ps.setLong(20, list.get(i).getPopAgeM109());
-                        ps.setLong(21, list.get(i).getPopAgeW109());
+                        ps.setLong(2, list.get(i).getPopAge100M());
+                        ps.setLong(3, list.get(i).getPopAge100W());
+                        ps.setLong(4, list.get(i).getPopAge101M());
+                        ps.setLong(5, list.get(i).getPopAge101W());
+                        ps.setLong(6, list.get(i).getPopAge102M());
+                        ps.setLong(7, list.get(i).getPopAge102W());
+                        ps.setLong(8, list.get(i).getPopAge103M());
+                        ps.setLong(9, list.get(i).getPopAge103W());
+                        ps.setLong(10, list.get(i).getPopAge104M());
+                        ps.setLong(11, list.get(i).getPopAge104W());
+                        ps.setLong(12, list.get(i).getPopAge105M());
+                        ps.setLong(13, list.get(i).getPopAge105W());
+                        ps.setLong(14, list.get(i).getPopAge106M());
+                        ps.setLong(15, list.get(i).getPopAge106W());
+                        ps.setLong(16, list.get(i).getPopAge107M());
+                        ps.setLong(17, list.get(i).getPopAge107W());
+                        ps.setLong(18, list.get(i).getPopAge108M());
+                        ps.setLong(19, list.get(i).getPopAge108W());
+                        ps.setLong(20, list.get(i).getPopAge109M());
+                        ps.setLong(21, list.get(i).getPopAge109W());
                         ps.setLong(22, mTotal + wTotal);
                         ps.setLong(23, mTotal);
                         ps.setLong(24, wTotal);
