@@ -15,7 +15,7 @@ public class PopulationMayTotal0s {
 
     @Id
     @Column(name = "pop_seq")
-    private Long popSeq;
+    private String popSeq;
 
     @Column(name = "pop_place")
     private String popPlace;

@@ -15,7 +15,7 @@ public class PopulationMayTotal {
 
     @Id
     @Column(name = "pop_seq")
-    private Long popSeq;
+    private String popSeq;
 
     @Column(name = "pop_place") // 지명
     private String popPlace;
