@@ -9,10 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -90,7 +87,7 @@ public class PopulationMayRepository {
                 ));
             }
 
-            if (nameWard.indexOf(" ") > -1) {                                   // ex. 성남시 분당구
+            if (nameWard != null && nameWard.contains(" ")) {                   // ex. 성남시 분당구
                 int cut = nameWard.indexOf(" ");
                 String subNameWard1 = nameWard.substring(0, cut);               // ex. 성남시
                 String subNameWard2 = nameWard.substring(cut + 1);     // ex. 분당구
@@ -131,8 +128,8 @@ public class PopulationMayRepository {
 
         map.put("전체", Arrays.asList(map.get("전체").get(0) + total, map.get("전체").get(1) + total_m, map.get("전체").get(2) + total_w));
 
-        List<String> keyList = map.keySet().stream().collect(Collectors.toList());
-        List<List<Long>> valueList = map.values().stream().collect(Collectors.toList());
+        List<String> keyList = map.keySet().stream().toList();
+        List<List<Long>> valueList = map.values().stream().toList();
 
         jdbcTemplate.batchUpdate(
                 "insert into population_may_total (pop_seq, pop_place, pop_total, pop_total_m, pop_total_w) " +
@@ -140,7 +137,8 @@ public class PopulationMayRepository {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setLong(1, 1 + i);
+                        String uuid = UUID.randomUUID().toString().substring(0, 9);
+                        ps.setString(1, uuid + i);
                         ps.setString(2, keyList.get(i));
                         ps.setLong(3, valueList.get(i).get(0));
                         ps.setLong(4, valueList.get(i).get(1));
