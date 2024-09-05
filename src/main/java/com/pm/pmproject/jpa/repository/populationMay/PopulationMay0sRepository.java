@@ -3,6 +3,7 @@ package com.pm.pmproject.jpa.repository.populationMay;
 import com.pm.pmproject.dto.Population0sDto;
 import com.pm.pmproject.util.PopulationTotalUtil;
 
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -11,10 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Repository
 public class PopulationMay0sRepository {
@@ -143,12 +140,12 @@ public class PopulationMay0sRepository {
                 ));
             }
 
-            if (nameWard.indexOf(" ") > -1) {                               // ex. 성남시 분당구
+            if (nameWard != null && nameWard.contains(" ")) {               // ex. 성남시 분당구
                 int cut = nameWard.indexOf(" ");
                 String subNameWard1 = nameWard.substring(0, cut);           // ex. 성남시
                 String subNameWard2 = nameWard.substring(cut + 1); // ex. 분당구
                 String subCityWard1 = nameCity + " " + subNameWard1;        // ex. 경기도 성남시
-                // String subCityWard2 = cityWard;                          // ex. 경기도 성남시 분당구
+                String subCityWard2 = cityWard;                             // ex. 경기도 성남시 분당구
 
                 if (!map.containsKey(subCityWard1)) {
                     map.put(subCityWard1, Arrays.asList(
@@ -178,15 +175,33 @@ public class PopulationMay0sRepository {
                     ));
                 }
 
-                // if(!map.containsKey(subCityWard2)) {
-                //     map.put(subCityWard2, Arrays.asList(list.get(i).getPopTotal(), list.get(i).getPopMTotal(), list.get(i).getPopWTotal()));
-                // } else {
-                //     map.put(subCityWard2, Arrays.asList(
-                //     	map.get(subCityWard2).get(0) + list.get(i).getPopTotal(),
-                //     	map.get(subCityWard2).get(1) + list.get(i).getPopMTotal(),
-                //     	map.get(subCityWard2).get(2) + list.get(i).getPopWTotal()
-                //     	));
-                // }
+                if (!map.containsKey(subCityWard2)) {
+                    map.put(subCityWard2, Arrays.asList(
+                            sumAge0, population0sDto.getPopAge0M(), population0sDto.getPopAge0W(),
+                            sumAge1, population0sDto.getPopAge1M(), population0sDto.getPopAge1W(),
+                            sumAge2, population0sDto.getPopAge2M(), population0sDto.getPopAge2W(),
+                            sumAge3, population0sDto.getPopAge3M(), population0sDto.getPopAge3W(),
+                            sumAge4, population0sDto.getPopAge4M(), population0sDto.getPopAge4W(),
+                            sumAge5, population0sDto.getPopAge5M(), population0sDto.getPopAge5W(),
+                            sumAge6, population0sDto.getPopAge6M(), population0sDto.getPopAge6W(),
+                            sumAge7, population0sDto.getPopAge7M(), population0sDto.getPopAge7W(),
+                            sumAge8, population0sDto.getPopAge8M(), population0sDto.getPopAge8W(),
+                            sumAge9, population0sDto.getPopAge9M(), population0sDto.getPopAge9W()
+                    ));
+                } else {
+                    map.put(subCityWard2, Arrays.asList(
+                            map.get(subCityWard2).get(0) + sumAge0, map.get(subCityWard2).get(1) + population0sDto.getPopAge0M(), map.get(subCityWard2).get(2) + population0sDto.getPopAge0W(),
+                            map.get(subCityWard2).get(3) + sumAge1, map.get(subCityWard2).get(4) + population0sDto.getPopAge1M(), map.get(subCityWard2).get(5) + population0sDto.getPopAge1W(),
+                            map.get(subCityWard2).get(6) + sumAge2, map.get(subCityWard2).get(7) + population0sDto.getPopAge2M(), map.get(subCityWard2).get(8) + population0sDto.getPopAge2W(),
+                            map.get(subCityWard2).get(9) + sumAge3, map.get(subCityWard2).get(10) + population0sDto.getPopAge3M(), map.get(subCityWard2).get(11) + population0sDto.getPopAge3W(),
+                            map.get(subCityWard2).get(12) + sumAge4, map.get(subCityWard2).get(13) + population0sDto.getPopAge4M(), map.get(subCityWard2).get(14) + population0sDto.getPopAge4W(),
+                            map.get(subCityWard2).get(15) + sumAge5, map.get(subCityWard2).get(16) + population0sDto.getPopAge5M(), map.get(subCityWard2).get(17) + population0sDto.getPopAge5W(),
+                            map.get(subCityWard2).get(18) + sumAge6, map.get(subCityWard2).get(19) + population0sDto.getPopAge6M(), map.get(subCityWard2).get(20) + population0sDto.getPopAge6W(),
+                            map.get(subCityWard2).get(21) + sumAge7, map.get(subCityWard2).get(22) + population0sDto.getPopAge7M(), map.get(subCityWard2).get(23) + population0sDto.getPopAge7W(),
+                            map.get(subCityWard2).get(24) + sumAge8, map.get(subCityWard2).get(25) + population0sDto.getPopAge8M(), map.get(subCityWard2).get(26) + population0sDto.getPopAge8W(),
+                            map.get(subCityWard2).get(27) + sumAge9, map.get(subCityWard2).get(28) + population0sDto.getPopAge9M(), map.get(subCityWard2).get(29) + population0sDto.getPopAge9W()
+                    ));
+                }
 
             } else {
                 if (!map.containsKey(cityWard)) {
@@ -222,8 +237,8 @@ public class PopulationMay0sRepository {
         map.put("전체", Arrays.asList(map.get("전체").get(0) + (total_m + total_w), map.get("전체").get(1) + total_m, map.get("전체").get(2) + total_w,
                 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L));
 
-        List<String> keyList = map.keySet().stream().collect(Collectors.toList());
-        List<List<Long>> valueList = map.values().stream().collect(Collectors.toList());
+        List<String> keyList = map.keySet().stream().toList();
+        List<List<Long>> valueList = map.values().stream().toList();
 
         jdbcTemplate.batchUpdate(
                 "insert into population_may_total_0s (pop_seq, pop_place, " +
@@ -236,7 +251,8 @@ public class PopulationMay0sRepository {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setLong(1, 1 + i);
+                        String uuid = UUID.randomUUID().toString().substring(0, 9);
+                        ps.setString(1, uuid + i);
                         ps.setString(2, keyList.get(i));
                         ps.setLong(3, valueList.get(i).get(0));
                         ps.setLong(4, valueList.get(i).get(1));
