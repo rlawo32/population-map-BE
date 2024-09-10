@@ -108,10 +108,10 @@ public class PopulationMainService {
             }
 
             if (operationId.length() > 0) {
-                String nameMonth = ldt.getMonth().name().substring(0, 3);
-//                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);uddi:3106da79-9e89-4af2-85f4-a132a46491ac
                 System.out.println("[" + "SubURL 확인 1" + "] " + operationId);
-                SchedulerPopulationUpdate("uddi:3106da79-9e89-4af2-85f4-a132a46491ac", latestMonth, "MAY"); // 5월 swagger
+                String nameMonth = ldt.getMonth().name().substring(0, 3);
+                SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
+//                SchedulerPopulationUpdate("uddi:3106da79-9e89-4af2-85f4-a132a46491ac", latestMonth, "MAY"); // 5월 swagger
             }
         } catch (UnsupportedEncodingException ex) {
             System.out.println("Error Code [1]");
@@ -124,8 +124,7 @@ public class PopulationMainService {
 
     private void SchedulerPopulationUpdate(String apiUrl, String updateMonth, String updateName) {
         try {
-//            String subUrl = apiUrl.substring(3);
-            String subUrl = apiUrl;
+            String subUrl = apiUrl.substring(3);
             System.out.println("[" + "SubURL 확인 2" + "] " + subUrl);
             System.out.println("[" + updateMonth + "] " + updateName + " - 통신 시작 ");
             StopWatch stopWatch1 = new StopWatch();
@@ -235,9 +234,7 @@ public class PopulationMainService {
                 populationAprService.populationAprUpdate(CommonRequestDto.setApiResultList(list,
                         list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
             } else if (updateName.equals("MAY")) {
-//                    populationMayService.populationMayUpdate(CommonRequestDto.setApiResultList(list,
-//                            list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
-                populationMayService.testSelect(CommonRequestDto.setApiResultList(list,
+                populationMayService.populationMayUpdate(CommonRequestDto.setApiResultList(list,
                         list0, list1, list2, list3, list4, list5, list6, list7, list8, list9, list10));
             } else if (updateName.equals("JUN")) {
                 populationJunService.populationJunUpdate(CommonRequestDto.setApiResultList(list,
@@ -271,10 +268,5 @@ public class PopulationMainService {
             System.out.println("Error Code [2]");
         }
     }
-
-//    @Scheduled(cron = "0/30 * * * * *")
-//    public void selectTest() {
-//        populationMayService.testSelect();
-//    }
 }
 
