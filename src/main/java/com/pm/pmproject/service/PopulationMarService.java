@@ -49,7 +49,33 @@ public class PopulationMarService {
             populationMar90sRepository.batchInsert(commonRequestDto.getPopulation90sDto());
 
             populationMar100sRepository.batchInsert(commonRequestDto.getPopulation100sDto());
-        } catch(Exception e) {
+
+
+            // total
+            populationMarRepository.populationTotalInsert(commonRequestDto.getPopulationResultDto());
+
+            populationMar0sRepository.populationTotalInsert(commonRequestDto.getPopulation0sDto());
+
+            populationMar10sRepository.populationTotalInsert(commonRequestDto.getPopulation10sDto());
+
+            populationMar20sRepository.populationTotalInsert(commonRequestDto.getPopulation20sDto());
+
+            populationMar30sRepository.populationTotalInsert(commonRequestDto.getPopulation30sDto());
+
+            populationMar40sRepository.populationTotalInsert(commonRequestDto.getPopulation40sDto());
+
+            populationMar50sRepository.populationTotalInsert(commonRequestDto.getPopulation50sDto());
+
+            populationMar60sRepository.populationTotalInsert(commonRequestDto.getPopulation60sDto());
+
+            populationMar70sRepository.populationTotalInsert(commonRequestDto.getPopulation70sDto());
+
+            populationMar80sRepository.populationTotalInsert(commonRequestDto.getPopulation80sDto());
+
+            populationMar90sRepository.populationTotalInsert(commonRequestDto.getPopulation90sDto());
+
+            populationMar100sRepository.populationTotalInsert(commonRequestDto.getPopulation100sDto());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
