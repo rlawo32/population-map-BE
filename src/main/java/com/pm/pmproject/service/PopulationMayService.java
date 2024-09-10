@@ -24,16 +24,6 @@ public class PopulationMayService {
     private final PopulationMay100sRepository populationMay100sRepository;
 
     @Transactional
-    public void testSelect(CommonRequestDto commonRequestDto) {
-        try {
-            populationMayRepository.populationTotalInsert(commonRequestDto.getPopulationResultDto());
-            populationMay0sRepository.populationTotalInsert(commonRequestDto.getPopulation0sDto());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Transactional
     public void populationMayUpdate(CommonRequestDto commonRequestDto) {
         try {
             populationMayRepository.batchInsert(commonRequestDto.getPopulationResultDto());
@@ -59,6 +49,31 @@ public class PopulationMayService {
             populationMay90sRepository.batchInsert(commonRequestDto.getPopulation90sDto());
 
             populationMay100sRepository.batchInsert(commonRequestDto.getPopulation100sDto());
+
+            // total
+            populationMayRepository.populationTotalInsert(commonRequestDto.getPopulationResultDto());
+
+            populationMay0sRepository.populationTotalInsert(commonRequestDto.getPopulation0sDto());
+
+            populationMay10sRepository.populationTotalInsert(commonRequestDto.getPopulation10sDto());
+
+            populationMay20sRepository.populationTotalInsert(commonRequestDto.getPopulation20sDto());
+
+            populationMay30sRepository.populationTotalInsert(commonRequestDto.getPopulation30sDto());
+
+            populationMay40sRepository.populationTotalInsert(commonRequestDto.getPopulation40sDto());
+
+            populationMay50sRepository.populationTotalInsert(commonRequestDto.getPopulation50sDto());
+
+            populationMay60sRepository.populationTotalInsert(commonRequestDto.getPopulation60sDto());
+
+            populationMay70sRepository.populationTotalInsert(commonRequestDto.getPopulation70sDto());
+
+            populationMay80sRepository.populationTotalInsert(commonRequestDto.getPopulation80sDto());
+
+            populationMay90sRepository.populationTotalInsert(commonRequestDto.getPopulation90sDto());
+
+            populationMay100sRepository.populationTotalInsert(commonRequestDto.getPopulation100sDto());
         } catch (Exception e) {
             e.printStackTrace();
         }
