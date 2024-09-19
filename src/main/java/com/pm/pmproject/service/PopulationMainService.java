@@ -92,24 +92,23 @@ public class PopulationMainService {
             JsonNode node2 = node1.findValue("paths");
             List<JsonNode> node3 = node2.findValues("get");
 
-            LocalDateTime ldt = LocalDateTime.now().minusMonths(2);
+            LocalDateTime ldt = LocalDateTime.now().minusMonths(2);         // ex. 9월 - 2개월 => 7월
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMM");
-            String latestMonth = ldt.format(dtf);
+            String latestMonth = ldt.format(dtf);                           // ex. 202407
             String operationId = "";
 
             for (int n = 0; n < node3.size(); n++) {
-                String summary = node3.get(n).get("summary").asText();
+                String summary = node3.get(n).get("summary").asText();      // ex. 행정안전부_지역별(행정동) 성별 연령별 주민등록 인구수_20240831
                 int p1 = summary.lastIndexOf("_");
-                String p2 = summary.substring(p1 + 1, p1 + 7);
+                String p2 = summary.substring(p1 + 1, p1 + 7);              // ex. 202407
 
                 if (latestMonth.equals(p2)) {
-                    operationId = node3.get(n).get("operationId").asText();
+                    operationId = node3.get(n).get("operationId").asText(); // ex. getuddi:a51f43ff-da64-43ca-a910-b0d7e9badf40
                 }
             }
 
             if (operationId.length() > 0) {
-                System.out.println("[" + "SubURL 확인 1" + "] " + operationId);
-                String nameMonth = ldt.getMonth().name().substring(0, 3);
+                String nameMonth = ldt.getMonth().name().substring(0, 3);   // ex. JUL
                 SchedulerPopulationUpdate(operationId, latestMonth, nameMonth);
 //                SchedulerPopulationUpdate("uddi:3106da79-9e89-4af2-85f4-a132a46491ac", latestMonth, "MAY"); // 5월 swagger
             }
