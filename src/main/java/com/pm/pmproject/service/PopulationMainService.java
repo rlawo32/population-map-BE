@@ -48,6 +48,22 @@ public class PopulationMainService {
     private final PopulationNovService populationNovService;
     private final PopulationDecService populationDecService;
 
+    /*
+        Scheduler 참고
+
+        @Scheduled 사용을 위해 Application 클래스에 @EnableScheduling 설정
+
+        (cron = "* * * * * *")
+        순서 -> 초 분 시 일 월 요일
+
+        Ex1. 매 5분마다 실행 -> 0 0/5 * * * ?
+        Ex2. 매 1시간마다 실행 -> 0 0 0/1 * * ?
+        Ex3. 매일 낮 12시에 실행 -> 0 0 12 * * ?
+        Ex4. 매일 오전 10시 15분에 실행 -> 0 15 10 * * ?
+        Ex5. 매월 15일 오전 10시 15분에 실행 -> 0 15 10 15 * ?
+        Ex6. 매월 말일 오후 10시 15분에 실행 -> 0 15 22 L * ?
+    */
+    
     @Scheduled(cron = "0 0/2 * * * *") // 10분마다
     public void SchedulerMonthCheckWithSwagger() {
         try {
@@ -100,7 +116,7 @@ public class PopulationMainService {
             for (int n = 0; n < node3.size(); n++) {
                 String summary = node3.get(n).get("summary").asText();      // ex. 행정안전부_지역별(행정동) 성별 연령별 주민등록 인구수_20240831
                 int p1 = summary.lastIndexOf("_");
-                String p2 = summary.substring(p1 + 1, p1 + 7);              // ex. 202407
+                String p2 = summary.substring(p1 + 1, p1 + 7);              // ex. 202408
 
                 if (latestMonth.equals(p2)) {
                     operationId = node3.get(n).get("operationId").asText(); // ex. getuddi:a51f43ff-da64-43ca-a910-b0d7e9badf40
