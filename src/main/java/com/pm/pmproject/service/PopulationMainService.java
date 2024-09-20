@@ -63,8 +63,28 @@ public class PopulationMainService {
         Ex5. 매월 15일 오전 10시 15분에 실행 -> 0 15 10 15 * ?
         Ex6. 매월 말일 오후 10시 15분에 실행 -> 0 15 22 L * ?
     */
+
+    @Scheduled(cron = "0 0 12 * * ?") 
+    public void SchedulerTest1() {
+        
+    }
     
-    @Scheduled(cron = "0 0/2 * * * *") // 10분마다
+    @Scheduled(cron = "0 15 10 * * ?") 
+    public void SchedulerTest1() {
+        
+    }
+
+    @Scheduled(cron = "0 15 10 15 * ?") 
+    public void SchedulerTest1() {
+        
+    }
+
+    @Scheduled(cron = "0 15 22 L * ?") 
+    public void SchedulerTest1() {
+        
+    }
+    
+    // @Scheduled(cron = "0 0/2 * * * *") 
     public void SchedulerMonthCheckWithSwagger() {
         try {
             // 1. URL 설정
