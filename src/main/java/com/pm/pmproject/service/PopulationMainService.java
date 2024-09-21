@@ -71,9 +71,9 @@ public class PopulationMainService {
         testRepository.batchInsert("매 5분");
     }
 
-    @Scheduled(cron = "0 0 12 * * ?")
+    @Scheduled(cron = "0 0 18 * * ?")
     public void SchedulerTest1() {
-        testRepository.batchInsert("매일 낮 12시");
+        testRepository.batchInsert("매일 오후 6시");
     }
 
     @Scheduled(cron = "0 15 10 * * ?")
