@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pm.pmproject.dto.*;
+import com.pm.pmproject.jpa.repository.test.TestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -35,6 +36,7 @@ public class PopulationMainService {
     @Value("${POPULATION_APIKEY}")
     private String apiKey;
 
+    private final TestRepository testRepository;
     private final PopulationJanService populationJanService;
     private final PopulationFebService populationFebService;
     private final PopulationMarService populationMarService;
@@ -64,26 +66,31 @@ public class PopulationMainService {
         Ex6. 매월 말일 오후 10시 15분에 실행 -> 0 15 22 L * ?
     */
 
-    @Scheduled(cron = "0 0 12 * * ?") 
-    public void SchedulerTest1() {
-        
-    }
-    
-    @Scheduled(cron = "0 15 10 * * ?") 
-    public void SchedulerTest1() {
-        
+    @Scheduled(cron = "0 0/5 * * * ?")
+    public void SchedulerTest0() {
+        testRepository.batchInsert("매 5분");
     }
 
-    @Scheduled(cron = "0 15 10 15 * ?") 
+    @Scheduled(cron = "0 0 12 * * ?")
     public void SchedulerTest1() {
-        
+        testRepository.batchInsert("매일 낮 12시");
     }
 
-    @Scheduled(cron = "0 15 22 L * ?") 
-    public void SchedulerTest1() {
-        
+    @Scheduled(cron = "0 15 10 * * ?")
+    public void SchedulerTest2() {
+        testRepository.batchInsert("매일 오전 10시 15분");
     }
-    
+
+    @Scheduled(cron = "0 15 10 15 * ?")
+    public void SchedulerTest3() {
+        testRepository.batchInsert("매월 15일 오전 10시 15분");
+    }
+
+    @Scheduled(cron = "0 15 22 L * ?")
+    public void SchedulerTest4() {
+        testRepository.batchInsert("매월 말일 오후 10시 15분");
+    }
+
     // @Scheduled(cron = "0 0/2 * * * *") 
     public void SchedulerMonthCheckWithSwagger() {
         try {
